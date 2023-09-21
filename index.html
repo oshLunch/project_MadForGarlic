@@ -1,0 +1,2143 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mad for Garlic</title>
+    <!-- Link Swiper's CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="css/index.css">
+
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+    <script src="lib/jquery-3.7.0.min.js"></script>
+
+    <script>
+        $(function () {
+            // 헤더 2차메뉴
+            let depth01 = $('header .pc .gnb .depth01');
+            let pcA = $('header .pc .gnb .depth01 > a');
+            let pcA2 = $('header .pc .gnb .depth01 .depth02');
+            let pcLi = $('header .pc .gnb .depth01');
+
+            pcLi.removeClass('on');
+
+            if ($(window).width() <= 1275 && $(window).width() > 960) {
+                pcA.click(function () {
+                    if ($(this).next().css('display') == 'none') {
+                        pcA2.slideUp();
+                        $(this).next().slideDown();
+                    } else {
+                        $(this).next().slideUp();
+                    }
+                });
+
+            } else if ($(window).width() > 1275) {
+                pcA.mouseenter(function () {
+                    pcLi.removeClass('on');
+                    $(this).parent().addClass('on');
+                });
+
+                depth01.mouseleave(function () {
+                    pcLi.removeClass('on');
+                })
+
+                pcA2.mouseleave(function () {
+                    pcLi.removeClass('on');
+                });
+            }
+
+            // 스크롤시 헤더 색상 변경
+            let cont01Top = $('.cont01').offset().top;
+            let cont02Top = $('.cont02').offset().top;
+            let cont03Top = $('footer').offset().top;
+            let membership = $('.cont03 .membership .list');
+            let sidebarP = $('.side_bar > div p');
+
+            $(window).scroll(function () {
+                if (cont01Top < $(window).scrollTop()) {
+                    sideBar.show();
+                    $('header').css({
+                        'background-color': 'rgba(0, 0, 0, 0.7)',
+                        'border-bottom': 'none',
+                        'transition': '0.3s'
+                    });
+                } else {
+                    $('header').css({
+                        'background-color': 'black',
+                        /* 'border-bottom': '1px solid white', */
+                        'transition': '0.3s'
+                    });
+                }
+            });
+
+
+            // 모바일 메뉴
+            let mobileBtn = $('header .mobile_menu');
+            let closeBtn = $('header .mobile_join figure');
+            let mobileNav = $('header .mobile_gnb');
+            let mobileBg = $('header .mobile_bg');
+            let mDepth01 = $('header .mobile_gnb .gnb .depth01');
+            let mDepth02 = $('header .mobile_gnb .gnb .depth01 .depth02');
+            let mA = $('header .mobile_gnb .gnb .depth01>a');
+            let back = $('header .mobile_gnb .back');
+
+            mobileNav.css({
+                'right': -$(window).width()
+            })
+
+            mobileBtn.click(function () {
+                mobileBg.addClass('on');
+                mobileNav.animate({
+                    'right': '0'
+                })
+            })
+
+            closeBtn.click(function () {
+                mobileBg.removeClass('on');
+                mDepth01.removeClass('on');
+                mobileNav.animate({
+                    'right': -$(window).width()
+                })
+            })
+
+            back.click(function () {
+                mobileBg.removeClass('on');
+                mDepth01.removeClass('on');
+                mobileNav.animate({
+                    'right': -$(window).width()
+                })
+            })
+
+            // 모바일 2차 메뉴
+
+            /* mDepth02.css({
+                'right': -$(window).width()
+            }) */
+
+            mA.click(function () {
+                if ($(this).parent().hasClass('on') == true) {
+                    mDepth01.removeClass('on');
+                    /* mDepth02.animate({
+                        'right': -$(window).width()
+                    }) */
+                } else {
+                    mDepth01.removeClass('on');
+                    $(this).parent().addClass('on');
+                    /* 
+                                        mDepth02.css({
+                                            'right': -$(window).width()
+                                        })
+                    
+                                        $(this).next().animate({
+                                            'right': '0'
+                                        }) */
+                }
+            })
+
+            // cont01 메뉴 네비게이션
+            let menuNav = $('.cont01 .inner nav .tag li');
+            let menuList = $('.cont01 .inner .menu_list');
+
+            menuNav.click(function () {
+                menuNav.removeClass('on');
+                $(this).addClass('on');
+
+                menuList.removeClass('on');
+                menuList.eq($(this).index()).addClass('on');
+            })
+
+            // cont01 메뉴 슬라이드
+            var swiper = new Swiper(".menu_list", {
+                centeredSlides: true,
+                loop: true,
+                /* pagination: {
+                    el: ".swiper-pagination",
+                    clickable: true,
+                }, */
+                navigation: {
+                    nextEl: ".swiper-button-next",
+                    prevEl: ".swiper-button-prev"
+                },
+            });
+
+            // cont02 프로모션 슬라이드
+            const progressCircle = document.querySelector(".autoplay-progress svg");
+            let slideActive = $('.cont02 .swiper-slide-active');
+
+            var swiper1 = new Swiper(".promotion", {
+                slidesPerView: "1",
+                centeredSlides: true,
+                spaceBetween: 50,
+                loop: true,
+                breakpoints: {
+                    1276: {
+                        slidesPerView: 3,
+                        spaceBetween: 150,
+                    }
+                },
+                pagination: {
+                    el: ".swiper-pagination",
+                    clickable: true,
+                },
+                autoplay: {
+                    delay: 5000,
+                    disableOnInteraction: false
+                },
+                navigation: {
+                    nextEl: ".swiper-button-next",
+                    prevEl: ".swiper-button-prev"
+                },
+                on: {
+                    autoplayTimeLeft(s, time, progress) {
+                        progressCircle.style.setProperty("--progress", 1 - progress);
+                    }
+                }
+            });
+
+            // cont02 프로모션 컨트롤
+            $('.play').hide();
+
+            $('.stop').click(function () {
+                swiper1.autoplay.stop();
+
+                $('.stop').hide();
+                $('.play').show();
+            });
+
+            $('.play').click(function () {
+                swiper1.autoplay.start();
+
+                $('.play').hide();
+                $('.stop').show();
+            });
+
+            // 스크롤시 cont03 아이템 드러내기
+            $(window).scroll(function () { /* $(window).scrollTop() >= '2300' */
+                if ($(window).scrollTop() > cont02Top) {
+                    membership.css({
+                        'bottom': '120px',
+                        'opacity': '1',
+                        'transition': '2.5s'
+                    })
+                } else {
+                    membership.css({
+                        'bottom': '30px',
+                        'opacity': '0',
+                        'transition': '2.5s'
+                    })
+                }
+            });
+
+            // 사이드바 나타나게 하기
+            let sideBar = $('footer .side_bar');
+
+            sideBar.hide();
+
+            $(window).scroll(function () {
+                if ($(window).width() <= '1275') {
+                    if (cont02Top / 2 < $(window).scrollTop()) {
+                        sideBar.show();
+                    } else {
+                        sideBar.hide();
+                    }
+
+                } else {
+                    if (cont01Top / 2 < $(window).scrollTop()) {
+                        sideBar.show();
+                    } else {
+                        sideBar.hide();
+                    }
+                }
+            });
+
+            // 사이드바 TOP 누를시 위로가기
+            $('.side_bar .top').click(function () {
+                $('html, body').animate({
+                    scrollTop: 0
+                }, 2000)
+            })
+
+            // 사이드바 호버 이펙트
+            let reservation = $('.side_bar .reservation');
+            let store = $('.side_bar .store');
+            let reservationImg = $('.side_bar .reservation .frame img');
+            let storeImg = $('.side_bar .store .frame img');
+            let reservationFrame = $('.side_bar .reservation .frame');
+            let storeFrame = $('.side_bar .store .frame');
+
+            reservation.mouseenter(function () {
+                reservationImg.attr('src', 'img/footer/side_bar/reservation_icon.png');
+                reservationFrame.css({
+                    'background-color': 'rgba(255, 255, 255, 0.6)',
+                    'border': '2px solid rgba(0, 0, 0, 0.6)',
+                    'transition': 'background-color 0.5s'
+                })
+            });
+
+            reservation.mouseleave(function () {
+                reservationImg.attr('src', 'img/footer/side_bar/reservation_icon_white.png');
+                reservationFrame.css({
+                    'background-color': 'rgba(0, 0, 0, 0.6)',
+                    'border': 'none'
+                })
+            });
+
+            store.mouseenter(function () {
+                storeImg.attr('src', 'img/footer/side_bar/shop_icon_black.png');
+                storeFrame.css({
+                    'background-color': 'rgba(255, 255, 255, 0.6)',
+                    'border': '2px solid rgba(0, 0, 0, 0.6)',
+                    'transition': 'background-color 0.5s'
+                })
+            });
+
+            store.mouseleave(function () {
+                storeImg.attr('src', 'img/footer/side_bar/shop_icon_white.png');
+                storeFrame.css({
+                    'background-color': 'rgba(0, 0, 0, 0.6)',
+                    'border': 'none'
+                })
+            });
+
+
+            // footer에 가까워지면 사이드바 글자색 흰색으로 변경
+            $(window).scroll(function () {
+                if ($(window).scrollTop() > (cont03Top - $('.cont03').height())) {
+                    sidebarP.css({
+                        'color': 'white',
+                        'text-shadow': 'none'
+                    })
+                } else {
+                    sidebarP.css({
+                        'color': 'black',
+                        'text-shadow': 'none'
+                    })
+                }
+            })
+
+            // 화면 줄었을 때 사이드바 글씨 변경
+            $(window).scroll(function () {
+                if ($(window).width() <= '1275') {
+                    if ($(window).scrollTop() > cont03Top / 2) {
+                        sidebarP.css({
+                            'color': 'white',
+                            'text-shadow': '-1px 0px black, 0px 1px black, 1px 0px black, 0px -1px black'
+                        })
+                    } else {
+                        sidebarP.css({
+                            'color': 'black',
+                            'text-shadow': 'none'
+                        })
+                    }
+                } else {
+                }
+            });
+
+        });
+    </script>
+</head>
+
+<body>
+    <div id="wrap">
+        <header>
+            <div class="inner">
+                <h1>
+                    <a href="#">
+                        <img src="img/header/logo.png" alt="로고">
+                    </a>
+                </h1>
+
+                <nav class="pc">
+                    <ul class="gnb">
+                        <li class="depth01">
+                            <a href="#">브랜드</a>
+
+                            <ul class="depth02">
+                                <li><a href="#">스토리</a></li>
+                                <li><a href="#">컨셉</a></li>
+                            </ul> <!-- depth02 end -->
+                        </li> <!-- depth01 end -->
+
+                        <li class="depth01">
+                            <a href="#">메뉴</a>
+
+                            <ul class="depth02">
+                                <li><a href="#">NEW</a></li>
+                                <li><a href="#">BREAD & STARTER</a></li>
+                                <li><a href="#">STEAK</a></li>
+                                <li><a href="#">PASTA</a></li>
+                                <li><a href="#">PIZZA</a></li>
+                                <li><a href="#">RICE & RISOTTO</a></li>
+                                <li><a href="#">DESSERT</a></li>
+                                <li><a href="#">BEVERAGE</a></li>
+                                <li><a href="#">WINE</a></li>
+                            </ul> <!-- depth02 end -->
+                        </li> <!-- depth01 end -->
+
+                        <li class="depth01">
+                            <a href="#">맴버십</a>
+
+                            <ul class="depth02">
+                                <li><a href="#">맴버십 소개</a></li>
+                                <li><a href="#">맴버십 가입</a></li>
+                            </ul> <!-- depth02 end -->
+                        </li> <!-- depth01 end -->
+
+                        <li class="depth01">
+                            <a href="#">이벤트</a>
+
+                            <ul class="depth02">
+                                <li><a href="#">EVENT</a></li>
+                                <li><a href="#">제휴 & 상품권</a></li>
+                                <li><a href="#">MAD CHALLENGE</a></li>
+                            </ul> <!-- depth02 end -->
+                        </li> <!-- depth01 end -->
+
+                        <li class="depth01">
+                            <a href="#">예약</a>
+                        </li> <!-- depth01 end -->
+                    </ul> <!-- gnb end -->
+                </nav> <!-- pc end -->
+
+                <nav class="mobile mobile_gnb on">
+                    <ul class="mobile_join">
+                        <li>
+                            <a href="#">
+                                <!-- <img src="img/header/login_white.png" alt=""> -->
+                                <p>로그인</p>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="#">
+                                <!-- <img src="img/header/join_white.png" alt=""> -->
+                                <p>회원가입</p>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="#">
+                                <!-- <img src="img/header/service_white.png" alt=""> -->
+                                <p>고객센터</p>
+                            </a>
+                        </li>
+
+                        <figure>
+                            <img src="img/header/close.png" alt="">
+                        </figure>
+                    </ul> <!-- mobile_join end -->
+
+                    <ul class="gnb">
+                        <li class="depth01 back">
+                            <a href="#">
+                                HOME
+                                <img src="img/header/next.png" alt="">
+                            </a>
+                        </li>
+
+
+                        <li class="depth01">
+                            <a href="#">
+                                브랜드
+                                <img src="img/header/next.png" alt="">
+                            </a>
+
+                            <ul class="depth02 back">
+                                <li>
+                                    <a href="#">
+                                        스토리
+                                        <img src="img/header/next_white.png" alt="">
+                                    </a>
+                                </li>
+
+
+                                <li>
+                                    <a href="#">
+                                        컨셉
+                                        <img src="img/header/next_white.png" alt="">
+                                    </a>
+                                </li>
+                            </ul> <!-- depth02 end -->
+                        </li> <!-- depth01 end -->
+
+                        <li class="depth01">
+                            <a href="#">
+                                메뉴
+                                <img src="img/header/next.png" alt="">
+                            </a>
+
+                            <ul class="depth02 back">
+                                <li>
+                                    <a href="#">
+                                        NEW
+                                        <img src="img/header/next_white.png" alt="">
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="#">
+                                        BREAD & STARTER
+                                        <img src="img/header/next_white.png" alt="">
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="#">
+                                        PASTA
+                                        <img src="img/header/next_white.png" alt="">
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="#">
+                                        PIZZA
+                                        <img src="img/header/next_white.png" alt="">
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="#">
+                                        RICE & RISOTTO
+                                        <img src="img/header/next_white.png" alt="">
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="#">
+                                        STEAK
+                                        <img src="img/header/next_white.png" alt="">
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="#">
+                                        DESSERT
+                                        <img src="img/header/next_white.png" alt="">
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="#">
+                                        BEVERAGE
+                                        <img src="img/header/next_white.png" alt="">
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="#">
+                                        WINE
+                                        <img src="img/header/next_white.png" alt="">
+                                    </a>
+                                </li>
+                            </ul> <!-- depth02 end -->
+                        </li> <!-- depth01 end -->
+
+                        <li class="depth01">
+                            <a href="#">
+                                맴버십
+                                <img src="img/header/next.png" alt="">
+                            </a>
+
+                            <ul class="depth02 back">
+                                <li>
+                                    <a href="#">
+                                        맴버십 소개
+                                        <img src="img/header/next_white.png" alt="">
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="#">
+                                        맴버십 가입
+                                        <img src="img/header/next_white.png" alt="">
+                                    </a>
+                                </li>
+                            </ul> <!-- depth02 end -->
+                        </li> <!-- depth01 end -->
+
+                        <li class="depth01">
+                            <a href="#">
+                                이벤트
+                                <img src="img/header/next.png" alt="">
+                            </a>
+
+                            <ul class="depth02 back">
+                                <li>
+                                    <a href="#">
+                                        EVENT
+                                        <img src="img/header/next_white.png" alt="">
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="#">
+                                        제휴 & 상품권
+                                        <img src="img/header/next_white.png" alt="">
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="#">
+                                        MAD CHALLENGE
+                                        <img src="img/header/next_white.png" alt="">
+                                    </a>
+                                </li>
+                            </ul> <!-- depth02 end -->
+                        </li> <!-- depth01 end -->
+                    </ul> <!-- gnb end -->
+
+                    <ul class="mobile_center back">
+                        <li class="depth01">
+                            <a href="#">
+                                <span>공식스토어<img src="img/footer/side_bar/shop_icon_black.png" alt=""></span>
+                                <img src="img/header/next.png" alt="">
+                            </a>
+                        </li> <!-- depth01 end -->
+
+                        <li class="depth01">
+                            <a href="#">
+                                예약
+                                <img src="img/header/next.png" alt="">
+                            </a>
+                        </li> <!-- depth01 end -->
+                    </ul>
+                </nav> <!-- mobile_gnb end -->
+
+                <div class="mobile_menu mobile">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div> <!-- mobile_menu -->
+
+                <ul class="pc_join">
+                    <li>
+                        <a href="#">
+                            <!-- <img src="img/header/login_white.png" alt=""> -->
+                            <p>로그인</p>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#">
+                            <!-- <img src="img/header/join_white.png" alt=""> -->
+                            <p>회원가입</p>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#">
+                            <!-- <img src="img/header/service_white.png" alt=""> -->
+                            <p>고객센터</p>
+                        </a>
+                    </li>
+                </ul> <!-- pc_join end -->
+            </div> <!-- inner end -->
+
+            <div class="mobile_bg">
+            </div> <!-- mobile_bg end -->
+        </header>
+
+        <main>
+            <section class="main_visual">
+                <figure class="youtube">
+                    <!-- <iframe width="560" height="315"
+                        src="https://www.youtube-nocookie.com/embed/NSOmjgVN1og?si=Hr63GnaM5rttecSC&amp;controls=0&amp;start=22&autoplay=1&mute=1&controls=0&loop=1&playlist=NSOmjgVN1og"
+                        title="YouTube video player" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowfullscreen></iframe> -->
+                    <video autoplay muted loop>
+                        <source src="img/main_visual/매드포갈릭 브랜드 소개영상.mp4" type="video/mp4" />
+                    </video>
+                </figure> <!-- youtube -->
+            </section> <!-- main_visual end -->
+
+            <section class="cont01">
+                <div class="inner">
+                    <h2>MENU</h2>
+
+                    <nav>
+                        <ul class="tag">
+                            <li class="on">NEW</li>
+                            <li>BREAD & STARTER</li>
+                            <li>SALAD</li>
+                            <li>PASTA</li>
+                            <li>PIZZA</li>
+                            <li>RICE & RISOTTO</li>
+                            <li>STEAK</li>
+                            <li>DESSERT</li>
+                            <li>BEVERAGE</li>
+                            <li>WINE</li>
+                        </ul> <!-- tag end -->
+                    </nav>
+
+                    <!-- NEW -->
+                    <div class="swiper menu_list on">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide menu">
+                                <div class="menu_img">
+                                    <a href="#">
+                                        <img src="img/cont01/new/new_01.jpg" alt="">
+                                    </a>
+                                </div> <!-- menu_img end -->
+
+                                <div class="menu_info">
+                                    <h3>NEW</h3>
+                                    <span>신메뉴</span>
+
+                                    <figure class="hot">
+                                        <img src="img/cont01/hot.png" alt="">
+                                    </figure> <!-- hot end -->
+
+                                    <h4>Beef Loin & Guacamole Taco</h4>
+                                    <strong>￦18,500</strong>
+
+                                    <p>블랙 케이준 시즈닝 된 부드러운 우삼겹과 매콤한 청양 과카몰리, 치폴레 마요 소스의 마일드한 조화를 즐기는
+                                        우삼겹 & 과카몰리 맛있타코</p>
+
+                                    <ul>
+                                        <li>※ 해당 메뉴에는 '고수(Cilantro)'가 가미된 '피코 데 가요'와 '고수(Cilantro) & 파슬리 찹'이 들어갑니다.</li>
+                                        <li>※ ​피코 데 가요 : 토마토, 양파, 고추, 고수 등으로 만든 소스</li>
+                                        <li>※ 특정 원재료에 알레르기가 있으신 경우 매장에 사전 문의 부탁드립니다.</li>
+                                    </ul>
+                                </div> <!-- menu_info end -->
+                            </div> <!-- menu end -->
+
+                            <div class="swiper-slide menu">
+                                <div class="menu_img">
+                                    <a href="#">
+                                        <img src="img/cont01/new/new_02.jpg" alt="">
+                                    </a>
+                                </div> <!-- menu_img end -->
+
+                                <div class="menu_info">
+                                    <h3>NEW</h3>
+                                    <span>신메뉴</span>
+
+                                    <figure class="hot">
+                                        <img src="img/cont01/hot.png" alt="">
+                                    </figure> <!-- hot end -->
+
+                                    <h4>Holymoly Guacamole Nacho Pizza</h4>
+                                    <strong>￦26,800</strong>
+
+                                    <p>매콤한 칠리 소스에 피코 데 가요, 나초 칩이 올라간 피자를
+                                        ​청양 과카몰리, 사워 크림과 곁들여 즐기는 멕시칸 스타일의 홀리몰리 과카몰리 나초 피자</p>
+
+                                    <ul>
+                                        <li>※ 해당 메뉴에는 '고수(Cilantro)'가 가미된 '피코 데 가요'와 '고수(Cilantro) & 파슬리 찹'이 들어갑니다.</li>
+                                        <li>※ ​피코 데 가요 : 토마토, 양파, 고추, 고수 등으로 만든 소스</li>
+                                        <li>※ 특정 원재료에 알레르기가 있으신 경우 매장에 사전 문의 부탁드립니다.</li>
+                                    </ul>
+                                </div> <!-- menu_info end -->
+                            </div> <!-- menu end -->
+
+                            <div class="swiper-slide menu">
+                                <div class="menu_img">
+                                    <a href="#">
+                                        <img src="img/cont01/new/new_03.jpg" alt="">
+                                    </a>
+                                </div> <!-- menu_img end -->
+
+                                <div class="menu_info">
+                                    <h3>NEW</h3>
+                                    <span>신메뉴</span>
+
+                                    <figure class="hot">
+                                        <img src="img/cont01/hot.png" alt="">
+                                    </figure> <!-- hot end -->
+
+                                    <h4>Super Sweet Corn Harmonica Steak</h4>
+                                    <strong>￦49,800 (200g)</strong>
+
+                                    <p>그린 키위 살사 소스가 어우러진 채끝 스테이크와 갈릭 타코 시즈닝이 더해진 스매시드 포테이토, 초당 콘 립을
+                                        함께 즐기는 초당옥수수 하모니카 스테이크</p>
+                                    <ul>
+                                        <li>※ 해당 메뉴에는 고수(Cilantro)가 가미된 '그린 키위 살사 소스'가 들어갑니다.</li>
+                                        <li>※ 15,000원 추가 시 300g으로 제공됩니다.</li>
+                                        <li>※ 특정 원재료에 알레르기가 있으신 경우 매장에 사전 문의 부탁드립니다.</li>
+                                    </ul>
+                                </div> <!-- menu_info end -->
+                            </div> <!-- menu end -->
+
+                            <div class="swiper-slide menu">
+                                <div class="menu_img">
+                                    <a href="#">
+                                        <img src="img/cont01/new/new_04.jpg" alt="">
+                                    </a>
+                                </div> <!-- menu_img end -->
+
+                                <div class="menu_info">
+                                    <h3>NEW</h3>
+                                    <span>신메뉴</span>
+
+                                    <h4>Lime Ginger Margarita</h4>
+                                    <strong>￦9,800</strong>
+
+                                    <p>생강청과 라임이 은은한 탄산감의 진저 비어와 어우러진 라임 생강나는 마가리타(논알콜)</p>
+                                    <ul>
+                                        <li>※ 특정 원재료에 알레르기가 있으신 경우 매장에 사전 문의 부탁드립니다.</li>
+                                    </ul>
+                                </div> <!-- menu_info end -->
+                            </div> <!-- menu end -->
+
+                            <div class="swiper-slide menu">
+                                <div class="menu_img">
+                                    <a href="#">
+                                        <img src="img/cont01/new/new_05.jpg" alt="">
+                                    </a>
+                                </div> <!-- menu_img end -->
+
+                                <div class="menu_info">
+                                    <h3>NEW</h3>
+                                    <span>신메뉴</span>
+
+                                    <h4>Very Berry Strawberry Margarita</h4>
+                                    <strong>￦9,800</strong>
+
+                                    <p>시원한 레몬소다와 달콤한 딸기가 만나 상큼달콤한 맛을 느낄 수 있는 베리 베리 스트로베리 마가리타(논알콜)</p>
+                                    <ul>
+                                        <li>※ 특정 원재료에 알레르기가 있으신 경우 매장에 사전 문의 부탁드립니다.</li>
+                                    </ul>
+                                </div> <!-- menu_info end -->
+                            </div> <!-- menu end -->
+                        </div>
+
+                        <div class="swiper-pagination"></div>
+                        <div class="swiper-button-next"></div>
+                        <div class="swiper-button-prev"></div>
+                    </div> <!-- menu_list end -->
+
+                    <!-- BREAD & STARTER -->
+                    <div class="swiper menu_list">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide menu">
+                                <div class="menu_img">
+                                    <a href="#">
+                                        <img src="img/cont01/bread/garlic_pane.png" alt="">
+                                    </a>
+                                </div> <!-- menu_img end -->
+
+                                <div class="menu_info">
+                                    <h3>BREAD</h3>
+                                    <span>식전빵</span>
+
+                                    <h4>Garlic Pane</h4>
+                                    <strong>￦7,500</strong>
+
+                                    <p>갈릭 소스가 듬뿍 스며들어 더욱 촉촉한 매드포갈릭의 오리지널 마늘빵 (2조각)</p>
+
+                                    <ul>
+                                        <li>※ 3,600원 추가 시 1조각이 추가 제공됩니다.</li>
+                                        <li>※ 특정 원재료에 알레르기가 있으신 경우 매장에 사전 문의 부탁드립니다.</li>
+                                    </ul>
+                                </div> <!-- menu_info end -->
+                            </div> <!-- menu end -->
+
+                            <div class="swiper-slide menu">
+                                <div class="menu_img">
+                                    <a href="#">
+                                        <img src="img/cont01/bread/dracula_killer.png" alt="">
+                                    </a>
+                                </div> <!-- menu_img end -->
+
+                                <div class="menu_info">
+                                    <h3>BREAD</h3>
+                                    <span>식전빵</span>
+
+                                    <h4>Dracula Killer</h4>
+                                    <strong>￦19,500</strong>
+
+                                    <p>엔쵸비와 올리브 오일에 구운 통마늘 위에 그라나파다노 치즈를 얹어 마늘빵과 함께 제공되는 요리</p>
+                                    <ul>
+                                        <li>※ 특정 원재료에 알레르기가 있으신 경우 매장에 사전 문의 부탁드립니다.</li>
+                                    </ul>
+                                </div> <!-- menu_info end -->
+                            </div> <!-- menu end -->
+
+                            <div class="swiper-slide menu">
+                                <div class="menu_img">
+                                    <a href="#">
+                                        <img src="img/cont01/bread/tomato_steamed_mussel.jpg" alt="">
+                                    </a>
+                                </div> <!-- menu_img end -->
+
+                                <div class="menu_info">
+                                    <h3>STARTER</h3>
+                                    <span>전채요리</span>
+
+                                    <figure class="hot">
+                                        <img src="img/cont01/hot.png" alt="">
+                                    </figure> <!-- hot end -->
+
+                                    <h4>Tomato Steamed Mussel</h4>
+                                    <strong>￦25,900</strong>
+
+                                    <p>신선한 홍합에 마늘을 넣고 와인과 토마토 소스로 졸인 푸짐한 홍합찜</p>
+                                    <ul>
+                                        <li>※ 매장 상황에 따라 메뉴 제공이 어려울 수 있습니다.</li>
+                                        <li>※ 특정 원재료에 알레르기가 있으신 경우 매장에 사전 문의 부탁드립니다.</li>
+                                    </ul>
+                                </div> <!-- menu_info end -->
+                            </div> <!-- menu end -->
+
+                            <div class="swiper-slide menu">
+                                <div class="menu_img">
+                                    <a href="#">
+                                        <img src="img/cont01/bread/olive_shrimp_cazuela.jpg" alt="">
+                                    </a>
+                                </div> <!-- menu_img end -->
+
+                                <div class="menu_info">
+                                    <h3>STARTER</h3>
+                                    <span>전채요리</span>
+
+                                    <figure class="hot">
+                                        <img src="img/cont01/hot.png" alt="">
+                                    </figure> <!-- hot end -->
+
+                                    <h4>Olive Shrimp Cazuela</h4>
+                                    <strong>￦27,900</strong>
+
+                                    <p>갈릭과 올리브가 듬뿍 들어간 지중해풍 소스에 푸짐한 새우를 껍질째 매콤하게 조리한 슈림프 카슈엘라</p>
+                                    <ul>
+                                        <li>※ 특정 원재료에 알레르기가 있으신 경우 매장에 사전 문의 부탁드립니다.</li>
+                                    </ul>
+                                </div> <!-- menu_info end -->
+                            </div> <!-- menu end -->
+                        </div>
+
+                        <div class="swiper-pagination"></div>
+                        <div class="swiper-button-next"></div>
+                        <div class="swiper-button-prev"></div>
+                    </div> <!-- menu_list end -->
+
+                    <!-- SALAD -->
+                    <div class="swiper menu_list">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide menu">
+                                <div class="menu_img">
+                                    <a href="#">
+                                        <img src="img/cont01/salad/salad_01.jpg" alt="">
+                                    </a>
+                                </div> <!-- menu_img end -->
+
+                                <div class="menu_info">
+                                    <h3>SALAD</h3>
+                                    <span>샐러드</span>
+
+                                    <h4>Mad for Garlic Tower Salad</h4>
+                                    <strong>￦19,900</strong>
+
+                                    <p>신선한 샐러드와 구운 닭가슴살, 베이컨, 체다치즈, 애플망고가 치폴레 비네그레트 드레싱과 어우러진 매드포갈릭 타워 샐러드</p>
+                                    <ul>
+                                        <li>※ 특정 원재료에 알레르기가 있으신 경우 매장에 사전 문의 부탁드립니다.</li>
+                                    </ul>
+                                </div> <!-- menu_info end -->
+                            </div> <!-- menu end -->
+
+                            <div class="swiper-slide menu">
+                                <div class="menu_img">
+                                    <a href="#">
+                                        <img src="img/cont01/salad/salad_02.jpg" alt="">
+                                    </a>
+                                </div> <!-- menu_img end -->
+
+                                <div class="menu_info">
+                                    <h3>SALAD</h3>
+                                    <span>샐러드</span>
+
+                                    <h4>Caesar Salad</h4>
+                                    <strong>￦20,900</strong>
+
+                                    <p>신선한 로메인, 베이컨, 크루통에 그라나 파다노 치즈를 갈아서 얹은 샐러드</p>
+                                    <ul>
+                                        <li>※ 특정 원재료에 알레르기가 있으신 경우 매장에 사전 문의 부탁드립니다.</li>
+                                    </ul>
+                                </div> <!-- menu_info end -->
+                            </div> <!-- menu end -->
+
+                            <div class="swiper-slide menu">
+                                <div class="menu_img">
+                                    <a href="#">
+                                        <img src="img/cont01/salad/salad_03.jpg" alt="">
+                                    </a>
+                                </div> <!-- menu_img end -->
+
+                                <div class="menu_info">
+                                    <h3>SALAD</h3>
+                                    <span>샐러드</span>
+
+                                    <h4>Melting Camembert Kale Salad</h4>
+                                    <strong>￦25,900</strong>
+
+                                    <p>신선한 케일, 미니코스, 비타민을 마멀레이드 드레싱에 버무려 따뜻한 갈릭 카망베르와 함께 즐기는 멜팅 카망베르 케일 샐러드</p>
+                                    <ul>
+                                        <li>※ 특정 원재료에 알레르기가 있으신 경우 매장에 사전 문의 부탁드립니다.</li>
+                                    </ul>
+                                </div> <!-- menu_info end -->
+                            </div> <!-- menu end -->
+                        </div>
+
+                        <div class="swiper-button-next"></div>
+                        <div class="swiper-button-prev"></div>
+                        <div class="swiper-pagination"></div>
+                    </div> <!-- menu_list end -->
+
+                    <!-- PASTA -->
+                    <div class="swiper menu_list">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide menu">
+                                <div class="menu_img">
+                                    <a href="#">
+                                        <img src="img/cont01/pasta/pasta_01.png" alt="">
+                                    </a>
+                                </div> <!-- menu_img end -->
+
+                                <div class="menu_info">
+                                    <h3>PASTA</h3>
+                                    <span>파스타</span>
+
+                                    <figure class="hot">
+                                        <img src="img/cont01/hot.png" alt="">
+                                        <img src="img/cont01/hot.png" alt="">
+                                    </figure> <!-- hot end -->
+
+                                    <h4>Garlicpeno Pasta</h4>
+                                    <strong>￦24,900</strong>
+
+                                    <p>매드포갈릭의 가장 매콤한 파스타로 할라페뇨와 마늘의 맛을 풍부하게 느낄 수 있는 올리브 오일 파스타</p>
+                                    <ul>
+                                        <li>※ 특정 원재료에 알레르기가 있으신 경우 매장에 사전 문의 부탁드립니다.</li>
+                                    </ul>
+                                </div> <!-- menu_info end -->
+                            </div> <!-- menu end -->
+
+                            <div class="swiper-slide menu">
+                                <div class="menu_img">
+                                    <a href="#">
+                                        <img src="img/cont01/pasta/pasta_02.png" alt="">
+                                    </a>
+                                </div> <!-- menu_img end -->
+
+                                <div class="menu_info">
+                                    <h3>PASTA</h3>
+                                    <span>파스타</span>
+
+                                    <figure class="hot">
+                                        <img src="img/cont01/hot.png" alt="">
+                                        <img src="img/cont01/hot.png" alt="">
+                                    </figure> <!-- hot end -->
+
+                                    <h4>Triple Garlic Pasta</h4>
+                                    <strong>￦25,400</strong>
+
+                                    <p>신선한 홍합, 새우, 깔라마리와 함께 마늘종이 어우러진 매콤한 해산물 파스타</p>
+                                    <ul>
+                                        <li>※ 특정 원재료에 알레르기가 있으신 경우 매장에 사전 문의 부탁드립니다.</li>
+                                    </ul>
+                                </div> <!-- menu_info end -->
+                            </div> <!-- menu end -->
+
+                            <div class="swiper-slide menu">
+                                <div class="menu_img">
+                                    <a href="#">
+                                        <img src="img/cont01/pasta/pasta_03.png" alt="">
+                                    </a>
+                                </div> <!-- menu_img end -->
+
+                                <div class="menu_info">
+                                    <h3>PASTA</h3>
+                                    <span>파스타</span>
+
+                                    <figure class="hot">
+                                        <img src="img/cont01/hot.png" alt="">
+                                        <img src="img/cont01/hot.png" alt="">
+                                    </figure> <!-- hot end -->
+
+                                    <h4>Arrabbiata</h4>
+                                    <strong>￦25,900</strong>
+
+                                    <p>매드포갈릭 특제 노하우로 만든 매콤한 토마토 소스 파스타</p>
+                                    <ul>
+                                        <li>※ 특정 원재료에 알레르기가 있으신 경우 매장에 사전 문의 부탁드립니다.</li>
+                                    </ul>
+                                </div> <!-- menu_info end -->
+                            </div> <!-- menu end -->
+
+                            <div class="swiper-slide menu">
+                                <div class="menu_img">
+                                    <a href="#">
+                                        <img src="img/cont01/pasta/pasta_04.png" alt="">
+                                    </a>
+                                </div> <!-- menu_img end -->
+
+                                <div class="menu_info">
+                                    <h3>PASTA</h3>
+                                    <span>파스타</span>
+
+                                    <h4>Garlic Carbonara</h4>
+                                    <strong>￦25,900</strong>
+
+                                    <p>갈릭 크림 소스와 베이컨이 어우러진 고소한 매드포갈릭 스타일의 까르보나라</p>
+                                    <ul>
+                                        <li>※ 특정 원재료에 알레르기가 있으신 경우 매장에 사전 문의 부탁드립니다.</li>
+                                    </ul>
+                                </div> <!-- menu_info end -->
+                            </div> <!-- menu end -->
+
+                            <div class="swiper-slide menu">
+                                <div class="menu_img">
+                                    <a href="#">
+                                        <img src="img/cont01/pasta/pasta_05.jpg" alt="">
+                                    </a>
+                                </div> <!-- menu_img end -->
+
+                                <div class="menu_info">
+                                    <h3>PASTA</h3>
+                                    <span>파스타</span>
+
+                                    <figure class="hot">
+                                        <img src="img/cont01/hot.png" alt="">
+                                    </figure> <!-- hot end -->
+
+                                    <h4>Naeng-i Crab Pasta</h4>
+                                    <strong>￦26,800</strong>
+
+                                    <p>바다향을 품은 꽃게와 향긋한 냉이 페스토가 어우러진 냉이 꽃게 파스타</p>
+                                    <ul>
+                                        <li>※ 특정 원재료에 알레르기가 있으신 경우 매장에 사전 문의 부탁드립니다.</li>
+                                    </ul>
+                                </div> <!-- menu_info end -->
+                            </div> <!-- menu end -->
+
+                            <div class="swiper-slide menu">
+                                <div class="menu_img">
+                                    <a href="#">
+                                        <img src="img/cont01/pasta/pasta_06.jpg" alt="">
+                                    </a>
+                                </div> <!-- menu_img end -->
+
+                                <div class="menu_info">
+                                    <h3>PASTA</h3>
+                                    <span>파스타</span>
+
+                                    <figure class="hot">
+                                        <img src="img/cont01/hot.png" alt="">
+                                    </figure> <!-- hot end -->
+
+                                    <h4>Spicy Myeongran Oil Pasta</h4>
+                                    <strong>￦26,800</strong>
+
+                                    <p>저염 백명란과 홍합 육수로 바다 향을 가득 내고 3가지 고추로 매콤한 맛을 더한 스파이시 명란 오일 파스타</p>
+                                    <ul>
+                                        <li>※ 특정 원재료에 알레르기가 있으신 경우 매장에 사전 문의 부탁드립니다.</li>
+                                    </ul>
+                                </div> <!-- menu_info end -->
+                            </div> <!-- menu end -->
+
+                            <div class="swiper-slide menu">
+                                <div class="menu_img">
+                                    <a href="#">
+                                        <img src="img/cont01/pasta/pasta_07.jpg" alt="">
+                                    </a>
+                                </div> <!-- menu_img end -->
+
+                                <div class="menu_info">
+                                    <h3>PASTA</h3>
+                                    <span>파스타</span>
+
+                                    <figure class="hot">
+                                        <img src="img/cont01/hot.png" alt="">
+                                    </figure> <!-- hot end -->
+
+                                    <h4>Fresh Ocean Soup Pasta</h4>
+                                    <strong>￦27,200</strong>
+
+                                    <p>신선한 바지락의 시원한 맛이 다양한 해산물과 어우러진 수프 파스타</p>
+                                    <ul>
+                                        <li>※ 제공되는 식재료는 시즌에 따라 대체 식재료로 제공될 수 있습니다.</li>
+                                        <li>※ 특정 원재료에 알레르기가 있으신 경우 매장에 사전 문의 부탁드립니다.</li>
+                                    </ul>
+                                </div> <!-- menu_info end -->
+                            </div> <!-- menu end -->
+
+                            <div class="swiper-slide menu">
+                                <div class="menu_img">
+                                    <a href="#">
+                                        <img src="img/cont01/pasta/pasta_08.png" alt="">
+                                    </a>
+                                </div> <!-- menu_img end -->
+
+                                <div class="menu_info">
+                                    <h3>PASTA</h3>
+                                    <span>파스타</span>
+
+                                    <h4>Crab & Lobster Pasta</h4>
+                                    <strong>￦27,900</strong>
+
+                                    <p>입안에서 사르르 녹는 게살과 탱글한 바닷가재살이 고소한 갈릭 크림 소스와 함께 입안에 녹아드는 파스타</p>
+                                    <ul>
+                                        <li>※ 특정 원재료에 알레르기가 있으신 경우 매장에 사전 문의 부탁드립니다.</li>
+                                    </ul>
+                                </div> <!-- menu_info end -->
+                            </div> <!-- menu end -->
+                        </div>
+
+                        <div class="swiper-button-next"></div>
+                        <div class="swiper-button-prev"></div>
+                        <div class="swiper-pagination"></div>
+                    </div> <!-- menu_list end -->
+
+                    <!-- PIZZA -->
+                    <div class="swiper menu_list">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide menu">
+                                <div class="menu_img">
+                                    <a href="#">
+                                        <img src="img/cont01/pizza/pizza_01.jpg" alt="">
+                                    </a>
+                                </div> <!-- menu_img end -->
+
+                                <div class="menu_info">
+                                    <h3>PIZZA</h3>
+                                    <span>피자</span>
+
+                                    <figure class="hot">
+                                        <img src="img/cont01/hot.png" alt="">
+                                    </figure> <!-- hot end -->
+
+                                    <h4>Pumpkin Spicy Cream Pizza</h4>
+                                    <strong>￦25,800</strong>
+
+                                    <p>듬뿍 넣은 단호박, 브로콜리, 그린빈, 파프리카와 스파이시 치킨, 청양 크림 소스로 매콤한 맛을 더한 피자</p>
+
+                                    <ul>
+                                        <li>※ 나폴리 스페셜 매장에서는 이탈리아 나폴리 피자협회(AVPN)에서 인증 받은 밀가루의 쫄깃한 나폴리 도우를 경험할 수
+                                            있습니다.</li>
+                                        <li>※ 나폴리 도우로 변경 시 1,000원 추가 (매장마다 피자도우 제공 여부가 상이하므로 자세한 사항은 매장에 문의하시길 바랍니다.)
+                                        </li>
+                                        <li>※ 특정 원재료에 알레르기가 있으신 경우 매장에 사전 문의 부탁드립니다.</li>
+                                    </ul>
+                                </div> <!-- menu_info end -->
+                            </div> <!-- menu end -->
+
+                            <div class="swiper-slide menu">
+                                <div class="menu_img">
+                                    <a href="#">
+                                        <img src="img/cont01/pizza/pizza_02.png" alt="">
+                                    </a>
+                                </div> <!-- menu_img end -->
+
+                                <div class="menu_info">
+                                    <h3>PIZZA</h3>
+                                    <span>피자</span>
+
+                                    <h4>Gorgonzola Pizza</h4>
+                                    <strong>￦26,500</strong>
+
+                                    <p>이태리 특유의 진한 고르곤졸라 치즈와 달콤한 꿀의 궁합이 환상인 피자</p>
+
+                                    <ul>
+                                        <li>※ 나폴리 스페셜 매장에서는 이탈리아 나폴리 피자협회(AVPN)에서 인증 받은 밀가루의 쫄깃한 나폴리 도우를 경험할 수
+                                            있습니다.</li>
+                                        <li>※ 나폴리 도우로 변경 시 1,000원 추가 (매장마다 피자도우 제공 여부가 상이하므로 자세한 사항은 매장에 문의하시길 바랍니다.)
+                                        </li>
+                                        <li>※ 특정 원재료에 알레르기가 있으신 경우 매장에 사전 문의 부탁드립니다.</li>
+                                    </ul>
+                                </div> <!-- menu_info end -->
+                            </div> <!-- menu end -->
+
+                            <div class="swiper-slide menu">
+                                <div class="menu_img">
+                                    <a href="#">
+                                        <img src="img/cont01/pizza/pizza_03.png" alt="">
+                                    </a>
+                                </div> <!-- menu_img end -->
+
+                                <div class="menu_info">
+                                    <h3>PIZZA</h3>
+                                    <span>피자</span>
+
+                                    <h4>Garlic Snowing Pizza</h4>
+                                    <strong>￦26,900</strong>
+
+                                    <p>화이트 소스에 새우, 파인애플, 고소한 튀긴 마늘이 어우러진 매드포갈릭 시그니처 피자</p>
+
+                                    <ul>
+                                        <li>※ 나폴리 스페셜 매장에서는 이탈리아 나폴리 피자협회(AVPN)에서 인증 받은 밀가루의 쫄깃한 나폴리 도우를 경험할 수
+                                            있습니다.</li>
+                                        <li>※ 나폴리 도우로 변경 시 1,000원 추가 (매장마다 피자도우 제공 여부가 상이하므로 자세한 사항은 매장에 문의하시길 바랍니다.)
+                                        </li>
+                                        <li>※ 특정 원재료에 알레르기가 있으신 경우 매장에 사전 문의 부탁드립니다.</li>
+                                    </ul>
+                                </div> <!-- menu_info end -->
+                            </div> <!-- menu end -->
+
+                            <div class="swiper-slide menu">
+                                <div class="menu_img">
+                                    <a href="#">
+                                        <img src="img/cont01/pizza/pizza_04.jpg" alt="">
+                                    </a>
+                                </div> <!-- menu_img end -->
+
+                                <div class="menu_info">
+                                    <h3>PIZZA</h3>
+                                    <span>피자</span>
+
+                                    <figure class="hot">
+                                        <img src="img/cont01/hot.png" alt="">
+                                    </figure> <!-- hot end -->
+
+                                    <h4>MAD Margherita Pizza</h4>
+                                    <strong>￦27,500</strong>
+
+                                    <p>토마토 본연의 맛을 느낄 수 있는 토마토 소스와 달콤한 방울 토마토, 고소한 풍미의 모짜렐라 치즈가 어우러진 매드포갈릭만의 매드 마르게리타 피자
+                                    </p>
+
+                                    <ul>
+                                        <li>※ 나폴리 스페셜 매장에서는 이탈리아 나폴리 피자협회(AVPN)에서 인증 받은 밀가루의 쫄깃한 나폴리 도우를 경험할 수
+                                            있습니다.</li>
+                                        <li>※ 나폴리 도우로 변경 시 1,000원 추가 (매장마다 피자도우 제공 여부가 상이하므로 자세한 사항은 매장에 문의하시길 바랍니다.)
+                                        </li>
+                                        <li>※ 특정 원재료에 알레르기가 있으신 경우 매장에 사전 문의 부탁드립니다.</li>
+                                    </ul>
+                                </div> <!-- menu_info end -->
+                            </div> <!-- menu end -->
+
+                            <div class="swiper-slide menu">
+                                <div class="menu_img">
+                                    <a href="#">
+                                        <img src="img/cont01/pizza/pizza_05.jpg" alt="">
+                                    </a>
+                                </div> <!-- menu_img end -->
+
+                                <div class="menu_info">
+                                    <h3>PIZZA</h3>
+                                    <span>피자</span>
+
+                                    <h4>Golden Basil Burrata Pizza</h4>
+                                    <strong>￦27,900</strong>
+
+                                    <p>다테리노 품종의 프리미엄 골든 토마토 소스 위에 부라타 치즈, 모타델라 햄, 프레시 바질을 함께 즐기는 골든 바질 부라타 피자</p>
+
+                                    <ul>
+                                        <li>※ 나폴리 스페셜 매장에서는 이탈리아 나폴리 피자협회(AVPN)에서 인증 받은 밀가루의 쫄깃한 나폴리 도우를 경험할 수
+                                            있습니다.</li>
+                                        <li>※ 나폴리 도우로 변경 시 1,000원 추가 (매장마다 피자도우 제공 여부가 상이하므로 자세한 사항은 매장에 문의하시길 바랍니다.)
+                                        </li>
+                                        <li>※ 특정 원재료에 알레르기가 있으신 경우 매장에 사전 문의 부탁드립니다.</li>
+                                    </ul>
+                                </div> <!-- menu_info end -->
+                            </div> <!-- menu end -->
+                        </div>
+
+                        <div class="swiper-button-next"></div>
+                        <div class="swiper-button-prev"></div>
+                        <div class="swiper-pagination"></div>
+                    </div> <!-- menu_list end -->
+
+                    <!-- RICE & RISOTTO -->
+                    <div class="swiper menu_list">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide menu">
+                                <div class="menu_img">
+                                    <a href="#">
+                                        <img src="img/cont01/rice/rice_01.jpg" alt="">
+                                    </a>
+                                </div> <!-- menu_img end -->
+
+                                <div class="menu_info">
+                                    <h3>RICE</h3>
+                                    <span>볶음밥</span>
+
+                                    <figure class="hot">
+                                        <img src="img/cont01/hot.png" alt="">
+                                    </figure> <!-- hot end -->
+
+                                    <h4>Variety Garlic Rice</h4>
+                                    <strong>￦26,500</strong>
+
+                                    <p>신선한 해산물을 앤쵸비에 매콤하게 볶아 다양한 맛의 갈릭과 함께 즐기는 버라이어티 갈릭 라이스</p>
+
+                                    <ul>
+                                        <li>※ 본 메뉴 사진은 실제와 다를 수 있습니다.</li>
+                                        <li>※ 특정 원재료에 알레르기가 있으신 경우 매장에 사전 문의 부탁드립니다.</li>
+                                    </ul>
+                                </div> <!-- menu_info end -->
+                            </div> <!-- menu end -->
+
+                            <div class="swiper-slide menu">
+                                <div class="menu_img">
+                                    <a href="#">
+                                        <img src="img/cont01/rice/rice_02.png" alt="">
+                                    </a>
+                                </div> <!-- menu_img end -->
+
+                                <div class="menu_info">
+                                    <h3>RICE</h3>
+                                    <span>볶음밥</span>
+
+                                    <figure class="hot">
+                                        <img src="img/cont01/hot.png" alt="">
+                                    </figure> <!-- hot end -->
+
+                                    <h4>Garlic Sizzling Rice</h4>
+                                    <strong>￦27,800</strong>
+
+                                    <p>베이컨, 새콤한 마늘 장아찌, 톡톡 씹히는 날치알과 렌치 소스가 함께 어우러진 매드포갈릭 볶음밥</p>
+
+                                    <ul>
+                                        <li>※ 특정 원재료에 알레르기가 있으신 경우 매장에 사전 문의 부탁드립니다.</li>
+                                    </ul>
+                                </div> <!-- menu_info end -->
+                            </div> <!-- menu end -->
+
+                            <div class="swiper-slide menu">
+                                <div class="menu_img">
+                                    <a href="#">
+                                        <img src="img/cont01/rice/rice_05.jpg" alt="">
+                                    </a>
+                                </div> <!-- menu_img end -->
+
+                                <div class="menu_info">
+                                    <h3>RICE</h3>
+                                    <span>볶음밥</span>
+
+                                    <figure class="hot">
+                                        <img src="img/cont01/hot.png" alt="">
+                                    </figure> <!-- hot end -->
+
+                                    <h4>Dancing Salsa Rice with Beef</h4>
+                                    <strong>￦28,500</strong>
+
+                                    <p>부드러운 쇠고기와 아삭한 숙주를 에그 후라이, 살사와 함께 즐기는 철판 볶음밥</p>
+
+                                    <ul>
+                                        <li>※ 특정 원재료에 알레르기가 있으신 경우 매장에 사전 문의 부탁드립니다.</li>
+                                    </ul>
+                                </div> <!-- menu_info end -->
+                            </div> <!-- menu end -->
+
+                            <div class="swiper-slide menu">
+                                <div class="menu_img">
+                                    <a href="#">
+                                        <img src="img/cont01/rice/rice_03.png" alt="">
+                                    </a>
+                                </div> <!-- menu_img end -->
+
+                                <div class="menu_info">
+                                    <h3>RISOTTO</h3>
+                                    <span>리조또</span>
+
+                                    <figure class="hot">
+                                        <img src="img/cont01/hot.png" alt="">
+                                    </figure> <!-- hot end -->
+
+                                    <h4>Grilled Chicken & Mushroom Risotto</h4>
+                                    <strong>￦27,800</strong>
+
+                                    <p>각종 버섯과 시금치를 넣은 리조또 위에 부드러운 닭다리살을 얹은 리조또</p>
+
+                                    <ul>
+                                        <li>※ 특정 원재료에 알레르기가 있으신 경우 매장에 사전 문의 부탁드립니다.</li>
+                                    </ul>
+                                </div> <!-- menu_info end -->
+                            </div> <!-- menu end -->
+
+                            <div class="swiper-slide menu">
+                                <div class="menu_img">
+                                    <a href="#">
+                                        <img src="img/cont01/rice/rice_04.png" alt="">
+                                    </a>
+                                </div> <!-- menu_img end -->
+
+                                <div class="menu_info">
+                                    <h3>RISOTTO</h3>
+                                    <span>리조또</span>
+
+                                    <figure class="hot">
+                                        <img src="img/cont01/hot.png" alt="">
+                                    </figure> <!-- hot end -->
+
+                                    <h4>Lemon Calamari Cream Risotto</h4>
+                                    <strong>￦26,900</strong>
+
+                                    <p>지중해풍 레몬으로 조리한 깔라마리를 수제 마늘종 피클과 곁들여먹는 매콤하고 부드러운 크림 리조또</p>
+
+                                    <ul>
+                                        <li>※ 특정 원재료에 알레르기가 있으신 경우 매장에 사전 문의 부탁드립니다.</li>
+                                    </ul>
+                                </div> <!-- menu_info end -->
+                            </div> <!-- menu end -->
+                        </div>
+
+                        <div class="swiper-button-next"></div>
+                        <div class="swiper-button-prev"></div>
+                        <div class="swiper-pagination"></div>
+                    </div> <!-- menu_list end -->
+
+                    <!-- STEAK -->
+                    <div class="swiper menu_list">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide menu">
+                                <div class="menu_img">
+                                    <a href="#">
+                                        <img src="img/cont01/steak/steak_01.jpg" alt="">
+                                    </a>
+                                </div> <!-- menu_img end -->
+
+                                <div class="menu_info">
+                                    <h3>STEAK</h3>
+                                    <span>스테이크</span>
+
+                                    <figure class="hot">
+                                        <img src="img/cont01/hot.png" alt="">
+                                    </figure> <!-- hot end -->
+
+                                    <h4>Brussels sprouts & Tornado Striploin Steak</h4>
+                                    <strong>￦48,700 (200g)</strong>
+
+                                    <p>매콤 달콤하게 조리된 미니 양배추와 얇게 슬라이스된 해슬백 포테이토, 육즙 가득 구워낸 스테이크를 포레스트 소스와 함께 즐기는 시그니처 스테이크
+                                    </p>
+
+                                    <ul>
+                                        <li>※ 15,000원 추가 시 300g으로 제공됩니다.</li>
+                                        <li>※ 특정 원재료에 알레르기가 있으신 경우 매장에 사전 문의 부탁드립니다.</li>
+                                    </ul>
+                                </div> <!-- menu_info end -->
+                            </div> <!-- menu end -->
+
+                            <div class="swiper-slide menu">
+                                <div class="menu_img">
+                                    <a href="#">
+                                        <img src="img/cont01/steak/steak_02.png" alt="">
+                                    </a>
+                                </div> <!-- menu_img end -->
+
+                                <div class="menu_info">
+                                    <h3>STEAK</h3>
+                                    <span>스테이크</span>
+
+                                    <h4>Garlic Steak</h4>
+                                    <strong>￦50,600 (200g)</strong>
+
+                                    <p>특별 레시피로 조리한 마늘이 듬뿍 올라간 매드포갈릭의 시그니처 등심 스테이크</p>
+
+                                    <ul>
+                                        <li>※ 15,000원 추가 시 300g, 30,000원 추가 시 400g으로 제공됩니다.</li>
+                                        <li>※ 특정 원재료에 알레르기가 있으신 경우 매장에 사전 문의 부탁드립니다.</li>
+                                    </ul>
+                                </div> <!-- menu_info end -->
+                            </div> <!-- menu end -->
+
+                            <div class="swiper-slide menu">
+                                <div class="menu_img">
+                                    <a href="#">
+                                        <img src="img/cont01/steak/steak_03.jpg" alt="">
+                                    </a>
+                                </div> <!-- menu_img end -->
+
+                                <div class="menu_info">
+                                    <h3>STEAK</h3>
+                                    <span>스테이크</span>
+
+                                    <h4>Herb Ribeye Steak</h4>
+                                    <strong>￦50,600 (200g)</strong>
+
+                                    <p>로즈마리, 타임, 월계수향을 가미하여 그릴에 굽고 허브 버터를 함께 곁들여먹는 립아이 스테이크</p>
+
+                                    <ul>
+                                        <li>※ 15,000원 추가 시 300g, 30,000원 추가 시 400g으로 제공됩니다.</li>
+                                        <li>※ 특정 원재료에 알레르기가 있으신 경우 매장에 사전 문의 부탁드립니다.</li>
+                                    </ul>
+                                </div> <!-- menu_info end -->
+                            </div> <!-- menu end -->
+
+                            <div class="swiper-slide menu">
+                                <div class="menu_img">
+                                    <a href="#">
+                                        <img src="img/cont01/steak/steak_04.jpg" alt="">
+                                    </a>
+                                </div> <!-- menu_img end -->
+
+                                <div class="menu_info">
+                                    <h3>STEAK</h3>
+                                    <span>스테이크</span>
+
+                                    <figure class="hot">
+                                        <img src="img/cont01/hot.png" alt="">
+                                    </figure> <!-- hot end -->
+
+                                    <h4>Garlic Hug Steak</h4>
+                                    <strong>￦53,000 (150g)</strong>
+
+                                    <p>마늘을 감싸 안은 듯 마늘로 속을 채운 후, 매운 향의 치즈 크림 소스와 함께 즐기는 부드러운 안심 스테이크</p>
+
+                                    <ul>
+                                        <li>※ 특정 원재료에 알레르기가 있으신 경우 매장에 사전 문의 부탁드립니다.</li>
+                                    </ul>
+                                </div> <!-- menu_info end -->
+                            </div> <!-- menu end -->
+                        </div>
+
+                        <div class="swiper-button-next"></div>
+                        <div class="swiper-button-prev"></div>
+                        <div class="swiper-pagination"></div>
+                    </div> <!-- menu_list end -->
+
+                    <!-- DESSERT -->
+                    <div class="swiper menu_list">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide menu">
+                                <div class="menu_img">
+                                    <a href="#">
+                                        <img src="img/cont01/dessert/dessert_01.jpg" alt="">
+                                    </a>
+                                </div> <!-- menu_img end -->
+
+                                <div class="menu_info">
+                                    <h3>DESSERT</h3>
+                                    <span>디저트</span>
+
+                                    <h4>Basque Cheese Cake</h4>
+                                    <strong>￦11,900</strong>
+
+                                    <p>바닐라 아이스크림과 함께 즐기는 바스크 치즈 케이크</p>
+
+                                    <ul>
+                                        <li>※ 특정 원재료에 알레르기가 있으신 경우 매장에 사전 문의 부탁드립니다.</li>
+                                    </ul>
+                                </div> <!-- menu_info end -->
+                            </div> <!-- menu end -->
+
+                            <div class="swiper-slide menu">
+                                <div class="menu_img">
+                                    <a href="#">
+                                        <img src="img/cont01/dessert/dessert_02.jpg" alt="">
+                                    </a>
+                                </div> <!-- menu_img end -->
+
+                                <div class="menu_info">
+                                    <h3>DESSERT</h3>
+                                    <span>디저트</span>
+
+                                    <h4>Villna Ice cream</h4>
+                                    <strong>￦5,800 (1 Scoop)</strong>
+
+                                    <p>부드럽고 달콤한 바닐라 아이스크림 (1스쿱)</p>
+                                </div> <!-- menu_info end -->
+                            </div> <!-- menu end -->
+
+                            <div class="swiper-slide menu">
+                                <div class="menu_img">
+                                    <a href="#">
+                                        <img src="img/cont01/dessert/dessert_03.png" alt="">
+                                    </a>
+                                </div> <!-- menu_img end -->
+
+                                <div class="menu_info">
+                                    <h3>DESSERT</h3>
+                                    <span>디저트</span>
+
+                                    <h4>Affogato</h4>
+                                    <strong>￦7,800</strong>
+
+                                    <p>진한 에스프레소를 바닐라 아이스크림 얹어서 진한 커피향과 달콤함을 함께 즐기는 커피 디저트</p>
+                                </div> <!-- menu_info end -->
+                            </div> <!-- menu end -->
+
+                            <div class="swiper-slide menu">
+                                <div class="menu_img">
+                                    <a href="#">
+                                        <img src="img/cont01/dessert/dessert_04.jpg" alt="">
+                                    </a>
+                                </div> <!-- menu_img end -->
+
+                                <div class="menu_info">
+                                    <h3>DESSERT</h3>
+                                    <span>디저트</span>
+
+                                    <h4>Banana Crepe Pouch</h4>
+                                    <strong>￦9,800</strong>
+
+                                    <p>부드럽고 달콤한 크레이프에 시나몬 버터로 볶아낸 바나나와 아이스크림을 건자두와 함께 즐기는 바나나 크레이프 파우치</p>
+                                </div> <!-- menu_info end -->
+                            </div> <!-- menu end -->
+
+                            <div class="swiper-slide menu">
+                                <div class="menu_img">
+                                    <a href="#">
+                                        <img src="img/cont01/dessert/dessert_05.jpg" alt="">
+                                    </a>
+                                </div> <!-- menu_img end -->
+
+                                <div class="menu_info">
+                                    <h3>DESSERT</h3>
+                                    <span>디저트</span>
+
+                                    <h4>Burrata Cheese with Basil Tomato</h4>
+                                    <strong>￦12,500</strong>
+
+                                    <p>부드러운 부라타 치즈와 상큼한 토마토, 향긋한 바질 오일과 발사믹 크림이 조화로운 디저트</p>
+
+                                    <ul>
+                                        <li>※ 본 메뉴는 와인 페어링 푸드로 와인 드시는 고객이 즐길 수 있도록 20% 할인된 10,000원에 이용 가능합니다. (무상 와인 주문
+                                            시
+                                            제외)</li>
+                                    </ul>
+                                </div> <!-- menu_info end -->
+                            </div> <!-- menu end -->
+
+                            <div class="swiper-slide menu">
+                                <div class="menu_img">
+                                    <a href="#">
+                                        <img src="img/cont01/dessert/dessert_06.jpg" alt="">
+                                    </a>
+                                </div> <!-- menu_img end -->
+
+                                <div class="menu_info">
+                                    <h3>DESSERT</h3>
+                                    <span>디저트</span>
+
+                                    <h4>Mille Crepe</h4>
+                                    <strong>￦9,800</strong>
+
+                                    <p>부드러운 생크림과 겹겹이 쌓은 달콤한 크레이프를 라즈베리와 함께 즐기는 밀 크레이프</p>
+                                </div> <!-- menu_info end -->
+                            </div> <!-- menu end -->
+                        </div>
+
+                        <div class="swiper-button-next"></div>
+                        <div class="swiper-button-prev"></div>
+                        <div class="swiper-pagination"></div>
+                    </div> <!-- menu_list end -->
+
+                    <!-- BEVERAGE -->
+                    <div class="swiper menu_list">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide menu">
+                                <div class="menu_img">
+                                    <a href="#">
+                                        <img src="img/cont01/beverage/beverage_01.png" alt="">
+                                    </a>
+                                </div> <!-- menu_img end -->
+
+                                <div class="menu_info">
+                                    <h3>BEVERAGE</h3>
+                                    <span>음료</span>
+
+                                    <h4>Orange Ade</h4>
+                                    <strong>￦6,500</strong>
+
+                                    <p>과즙이 가득한 오렌지를 갈아 넣어 더욱 신선한 오렌지 에이드</p>
+                                </div> <!-- menu_info end -->
+                            </div> <!-- menu end -->
+
+                            <div class="swiper-slide menu">
+                                <div class="menu_img">
+                                    <a href="#">
+                                        <img src="img/cont01/beverage/beverage_02.png" alt="">
+                                    </a>
+                                </div> <!-- menu_img end -->
+
+                                <div class="menu_info">
+                                    <h3>BEVERAGE</h3>
+                                    <span>음료</span>
+
+                                    <h4>Lemon Ade</h4>
+                                    <strong>￦6,500</strong>
+
+                                    <p>과즙이 가득한 레몬을 갈아 넣어 더욱 신선한 레몬 에이드</p>
+                                </div> <!-- menu_info end -->
+                            </div> <!-- menu end -->
+
+                            <div class="swiper-slide menu">
+                                <div class="menu_img">
+                                    <a href="#">
+                                        <img src="img/cont01/beverage/beverage_03.png" alt="">
+                                    </a>
+                                </div> <!-- menu_img end -->
+
+                                <div class="menu_info">
+                                    <h3>BEVERAGE</h3>
+                                    <span>음료</span>
+
+                                    <h4>Grapefruit Ade</h4>
+                                    <strong>￦6,500</strong>
+
+                                    <p>과즙이 가득한 자몽을 갈아 넣어 더욱 신선한 자몽 에이드</p>
+                                </div> <!-- menu_info end -->
+                            </div> <!-- menu end -->
+
+                            <div class="swiper-slide menu">
+                                <div class="menu_img">
+                                    <a href="#">
+                                        <img src="img/cont01/beverage/beverage_04.png" alt="">
+                                    </a>
+                                </div> <!-- menu_img end -->
+
+                                <div class="menu_info">
+                                    <h3>BEVERAGE</h3>
+                                    <span>음료</span>
+
+                                    <h4>Red Berry Wine Cooler</h4>
+                                    <strong>￦7,500</strong>
+
+                                    <p>지중해 와인과 라즈베리, 블루베리, 레몬, 로즈마리 등이 어우러진 프리미엄 레드 와인 쿨러</p>
+                                </div> <!-- menu_info end -->
+                            </div> <!-- menu end -->
+
+                            <div class="swiper-slide menu">
+                                <div class="menu_img">
+                                    <a href="#">
+                                        <img src="img/cont01/beverage/beverage_05.png" alt="">
+                                    </a>
+                                </div> <!-- menu_img end -->
+
+                                <div class="menu_info">
+                                    <h3>BEVERAGE</h3>
+                                    <span>음료</span>
+
+                                    <h4>White Berry Wine Cooler</h4>
+                                    <strong>￦7,500</strong>
+
+                                    <p>지중해 와인과 라즈베리, 블루베리, 레몬, 로즈마리 등이 어우러진 프리미엄 화이트 와인 쿨러</p>
+                                </div> <!-- menu_info end -->
+                            </div> <!-- menu end -->
+
+                            <div class="swiper-slide menu">
+                                <div class="menu_img">
+                                    <a href="#">
+                                        <img src="img/cont01/beverage/beverage_06.jpg" alt="">
+                                    </a>
+                                </div> <!-- menu_img end -->
+
+                                <div class="menu_info">
+                                    <h3>BEVERAGE</h3>
+                                    <span>음료</span>
+
+                                    <h4>CIDER</h4>
+                                    <strong>￦4,500</strong>
+
+                                    <p>칠성사이다</p>
+                                </div> <!-- menu_info end -->
+                            </div> <!-- menu end -->
+
+                            <div class="swiper-slide menu">
+                                <div class="menu_img">
+                                    <a href="#">
+                                        <img src="img/cont01/beverage/beverage_07.jpg" alt="">
+                                    </a>
+                                </div> <!-- menu_img end -->
+
+                                <div class="menu_info">
+                                    <h3>BEVERAGE</h3>
+                                    <span>음료</span>
+
+                                    <h4>PEPSI</h4>
+                                    <strong>￦4,500</strong>
+
+                                    <p>펩시콜라</p>
+                                </div> <!-- menu_info end -->
+                            </div> <!-- menu end -->
+                        </div>
+
+                        <div class="swiper-button-next"></div>
+                        <div class="swiper-button-prev"></div>
+                        <div class="swiper-pagination"></div>
+                    </div> <!-- menu_list end -->
+
+                    <!-- WINE -->
+                    <div class="swiper menu_list">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide menu wine mad">
+                                <figure>
+                                    <img src="img/cont01/wine/mad_winn.png" alt="">
+                                    <a href="#">더 알아보기</a>
+                                </figure>
+                            </div> <!-- menu end -->
+
+                            <div class="swiper-slide menu wine">
+                                <img src="img/cont01/wine/red_wine.jpg" alt="">
+                                <h2>RED WINE</h2>
+                                <a href="#">더 알아보기</a>
+                            </div> <!-- menu end -->
+
+                            <div class="swiper-slide menu wine">
+                                <img src="img/cont01/wine/white_wine.png" alt="">
+                                <h2>WHITE WINE</h2>
+                                <a href="#">더 알아보기</a>
+                            </div> <!-- menu end -->
+
+                            <div class="swiper-slide menu wine">
+                                <img src="img/cont01/wine/Rose_wine.jpg" alt="">
+                                <h2>ROSE WINE</h2>
+                                <a href="#">더 알아보기</a>
+                            </div> <!-- menu end -->
+
+                            <div class="swiper-slide menu wine">
+                                <img src="img/cont01/wine/sparkling_wine.jpg" alt="">
+                                <h2>SPARKLING WINE</h2>
+                                <a href="#">더 알아보기</a>
+                            </div> <!-- menu end -->
+
+                            <div class="swiper-slide menu wine">
+                                <img src="img/cont01/wine/shampagne.jpg" alt="">
+                                <h2>CHAMPAGNE</h2>
+                                <a href="#">더 알아보기</a>
+                            </div> <!-- menu end -->
+                        </div>
+
+                        <div class="swiper-button-next"></div>
+                        <div class="swiper-button-prev"></div>
+                    </div> <!-- menu_list end -->
+                </div> <!-- inner end -->
+            </section> <!-- cont01 end -->
+
+            <section class="cont02">
+                <div class="frame">
+                    <h2>PROMOTION</h2>
+
+                    <div class="swiper promotion">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide">
+                                <a href="#">
+                                    <img src="img/cont02/promotion01.jpg" alt="">
+                                </a>
+                            </div> <!-- swiper-slide end -->
+
+                            <div class="swiper-slide">
+                                <a href="#">
+                                    <img src="img/cont02/promotion02.jpg" alt="">
+                                </a>
+                            </div> <!-- swiper-slide end -->
+
+                            <div class="swiper-slide">
+                                <a href="#">
+                                    <img src="img/cont02/promotion03.jpg" alt="">
+                                </a>
+                            </div> <!-- swiper-slide end -->
+
+                            <div class="swiper-slide">
+                                <a href="#">
+                                    <img src="img/cont02/promotion04.jpg" alt="">
+                                </a>
+                            </div> <!-- swiper-slide end -->
+
+                            <div class="swiper-slide">
+                                <a href="#">
+                                    <img src="img/cont02/promotion05.jpg" alt="">
+                                </a>
+                            </div> <!-- swiper-slide end -->
+
+                            <div class="swiper-slide">
+                                <a href="#">
+                                    <img src="img/cont02/promotion06.jpg" alt="">
+                                </a>
+                            </div> <!-- swiper-slide end -->
+
+                            <div class="swiper-slide">
+                                <a href="#">
+                                    <img src="img/cont02/promotion07.jpg" alt="">
+                                </a>
+                            </div> <!-- swiper-slide end -->
+
+                            <div class="swiper-slide">
+                                <a href="#">
+                                    <img src="img/cont02/promotion08.jpg" alt="">
+                                </a>
+                            </div> <!-- swiper-slide end -->
+
+                            <div class="swiper-slide">
+                                <a href="#">
+                                    <img src="img/cont02/promotion09.jpg" alt="">
+                                </a>
+                            </div> <!-- swiper-slide end -->
+
+                            <div class="swiper-slide">
+                                <a href="#">
+                                    <img src="img/cont02/promotion10.jpg" alt="">
+                                </a>
+                            </div> <!-- swiper-slide end -->
+                        </div>
+                        <div class="swiper-button-next"></div>
+                        <div class="swiper-button-prev"></div>
+                        <div class="swiper-pagination"></div>
+
+                        <div class="autoplay-progress">
+                            <svg viewBox="0 0 48 48">
+                                <circle cx="24" cy="24" r="20"></circle>
+                            </svg>
+                        </div>
+
+                        <div class="control">
+                            <div class="stop">
+                            </div> <!-- stop end -->
+
+                            <div class="play">
+                            </div> <!-- start end -->
+                        </div> <!-- control end -->
+                    </div> <!-- promotion end -->
+                </div> <!-- frame end -->
+            </section> <!-- cont02 end -->
+
+            <section class="cont03">
+                <div class="inner">
+                    <div class="membership">
+                        <div class="title">
+                            <h3>MEMBERSHIP</h3>
+                            <p>모든 브랜드에서 적립하고 혜택 누리는 올인원 맴버십 M CLUB</p>
+                        </div> <!-- title end -->
+
+                        <div class="list">
+                            <div class="item">
+                                <a href="#">
+                                    <img src="img/cont03/cake_icon.png" alt="">
+                                    <strong>기념일 혜택</strong>
+                                    <p>생일에 즐기는<br>
+                                        나만의 리워즈</p>
+                                </a>
+                            </div> <!-- item -->
+
+                            <div class="item">
+                                <a href="#">
+                                    <img src="img/cont03/coupon_icon.png" alt="">
+                                    <strong>전용 리워드 혜택</strong>
+                                    <p>맴버십 전용 리워드 쿠폰과 선물<br>
+                                        모든 브랜드에서 사용 가능한 식사권까지</p>
+                                </a>
+                            </div> <!-- item -->
+
+                            <div class="item">
+                                <a href="#">
+                                    <img src="img/cont03/wine_icon.png" alt="">
+                                    <strong>와인 배지 혜택</strong>
+                                    <p>맴버십 고객에게만 드리는<br>
+                                        와인 프로모션</p>
+                                </a>
+                            </div> <!-- item -->
+                        </div> <!-- list end -->
+                    </div> <!-- menbership end -->
+
+                    <div class="search bottom">
+                        <img src="img/cont03/search.jpg" alt="">
+                        <a href="#">
+                            <strong>SEARCH</strong>
+                            <p>매드포갈릭 매장 찾기</p>
+                        </a>
+                    </div> <!-- search end -->
+
+                    <div class="recruit bottom">
+                        <img src="img/cont03/recruit.jpg" alt="">
+                        <a href="#">
+                            <strong>RECRUIT</strong>
+                            <p>채용 및 모집 안내</p>
+                        </a>
+                    </div> <!-- search end -->
+                </div> <!-- inner end -->
+            </section> <!-- cont03 end -->
+        </main>
+
+        <footer>
+            <div class="side_bar">
+                <div class="reservation">
+                    <div class="frame">
+                        <img src="img/footer/side_bar/reservation_icon_white.png" alt="">
+                    </div> <!-- frame end -->
+                    <p>예약하기</p>
+                </div> <!-- reservation end -->
+
+                <div class="store">
+                    <div class="frame">
+                        <img src="img/footer/side_bar/shop_icon_white.png" alt="">
+                    </div> <!-- frame end -->
+                    <p>공식스토어</p>
+                </div> <!-- store end -->
+
+                <div class="frame top">
+                    <strong><span>▲</span>TOP</strong>
+                </div> <!-- frame end -->
+            </div> <!-- side_bar end -->
+
+            <div class="inner">
+                <div class="info">
+                    <ul>
+                        <li><a href="#">개인정보처리방침</a></li>
+                        <li><a href="#">이용약관</a></li>
+                    </ul>
+
+                    <p>서울시 중구 동호로 15길 31, 종하빌딩 B동</p>
+
+                    <div class="sns">
+                        <a href="#"><img src="img/footer/insta_icon.png" alt="인스타"></a>
+                        <a href="#"><img src="img/footer/facebook_icon.png" alt="페북"></a>
+                        <a href="#"><img src="img/footer/youtube_icon.png" alt="유튜브"></a>
+                    </div> <!-- sns end -->
+
+                    <div class="app">
+                        <a href="#">
+                            <img src="img/footer/apple.png" alt="">
+                        </a>
+                        <a href="#">
+                            <img src="img/footer/google.png" alt="">
+                        </a>
+                    </div> <!-- app end -->
+
+                    <span>COPYRIGHT ⓒ OSH</span>
+                </div> <!-- info end -->
+
+                <nav>
+                    <ul class="f_gnb">
+                        <li class="f_depth01">
+                            <a href="#">BRAND</a>
+
+                            <ul class="f_depth02">
+                                <li><a href="#">INTRODUCE</a></li>
+                                <li><a href="#">CONCEPT</a></li>
+                            </ul> <!-- f_depth02 end -->
+                        </li> <!-- f_depth01 end -->
+
+                        <li class="f_depth01">
+                            <a href="#">MENU</a>
+
+                            <ul class="f_depth02">
+                                <li><a href="#">NEW</a></li>
+                                <li><a href="#">BREAD & STARTER</a></li>
+                                <li><a href="#">STEAK</a></li>
+                                <li><a href="#">PASTA</a></li>
+                                <li><a href="#">PIZZA</a></li>
+                                <li><a href="#">RICE & RISOTTO</a></li>
+                                <li><a href="#">DESSERT</a></li>
+                                <li><a href="#">BEVERAGE</a></li>
+                                <li><a href="#">WINE</a></li>
+                            </ul> <!-- f_depth02 end -->
+                        </li> <!-- f_depth01 end -->
+
+                        <li class="f_depth01">
+                            <a href="#">EVENT</a>
+
+                            <ul class="f_depth02">
+                                <li><a href="#">이벤트</a></li>
+                                <li><a href="#">제휴 & 상품권</a></li>
+                                <li><a href="#">MAD CHALLENGE</a></li>
+                            </ul> <!-- f_depth02 end -->
+                        </li> <!-- f_depth01 end -->
+
+                        <li class="f_depth01">
+                            <a href="#">MEMBERSHIP</a>
+
+                            <ul class="f_depth02">
+                                <li><a href="#">맴버십 소개</a></li>
+                                <li><a href="#">맴버십 가입</a></li>
+                            </ul> <!-- f_depth02 end -->
+                        </li> <!-- f_depth01 end -->
+                    </ul> <!-- f_gnb end -->
+                </nav>
+            </div> <!-- inner end -->
+        </footer>
+    </div> <!-- #wrap end -->
+</body>
+
+</html>
