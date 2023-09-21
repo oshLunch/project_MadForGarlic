@@ -94,6 +94,7 @@
                 })
             })
 
+            // 닫기버튼 클릭시 빠져나옴
             closeBtn.click(function () {
                 mobileBg.removeClass('on');
                 mDepth01.removeClass('on');
@@ -102,7 +103,17 @@
                 })
             })
 
+            // 2차메뉴 없는 리스트 클릭시 빠져나옴
             back.click(function () {
+                mobileBg.removeClass('on');
+                mDepth01.removeClass('on');
+                mobileNav.animate({
+                    'right': -$(window).width()
+                })
+            })
+
+            // 배경 클릭시 빠져나옴
+            mobileBg.click(function () {
                 mobileBg.removeClass('on');
                 mDepth01.removeClass('on');
                 mobileNav.animate({
@@ -126,13 +137,13 @@
                     mDepth01.removeClass('on');
                     $(this).parent().addClass('on');
                     /* 
-                                        mDepth02.css({
-                                            'right': -$(window).width()
-                                        })
+                    mDepth02.css({
+                        'right': -$(window).width()
+                    })
                     
-                                        $(this).next().animate({
-                                            'right': '0'
-                                        }) */
+                    $(this).next().animate({
+                        'right': '0'
+                    }) */
                 }
             })
 
@@ -214,19 +225,38 @@
             });
 
             // 스크롤시 cont03 아이템 드러내기
+            let membershipMore = $('.cont03 .membership > a');
+
             $(window).scroll(function () { /* $(window).scrollTop() >= '2300' */
-                if ($(window).scrollTop() > cont02Top) {
-                    membership.css({
-                        'bottom': '120px',
-                        'opacity': '1',
-                        'transition': '2.5s'
-                    })
+                if ($(window).width() <= 960 && $(window).width() > 850) {
+                    if ($(window).scrollTop() > cont02Top) {
+                        membership.css({
+                            'bottom': '80px',
+                            'opacity': '1',
+                            'transition': '2.5s'
+                        })
+                    } else {
+                        membership.css({
+                            'bottom': '10px',
+                            'opacity': '0',
+                            'transition': '2.5s'
+                        })
+                    }
+
                 } else {
-                    membership.css({
-                        'bottom': '30px',
-                        'opacity': '0',
-                        'transition': '2.5s'
-                    })
+                    if ($(window).scrollTop() > cont02Top) {
+                        membership.css({
+                            'bottom': '140px',
+                            'opacity': '1',
+                            'transition': '2.5s'
+                        })
+                    } else {
+                        membership.css({
+                            'bottom': '30px',
+                            'opacity': '0',
+                            'transition': '2.5s'
+                        })
+                    }
                 }
             });
 
@@ -236,12 +266,15 @@
             sideBar.hide();
 
             $(window).scroll(function () {
-                if ($(window).width() <= '1275') {
+                if ($(window).width() <= '1275' && $(window).width() > '540') {
                     if (cont02Top / 2 < $(window).scrollTop()) {
                         sideBar.show();
                     } else {
                         sideBar.hide();
                     }
+
+                } else if ($(window).width() <= '540') {
+                    sideBar.hide();
 
                 } else {
                     if (cont01Top / 2 < $(window).scrollTop()) {
@@ -335,6 +368,21 @@
                 }
             });
 
+            // 창 넓이 850px 이하일 때 더보기 버튼
+            let moreBtn = $('footer nav .f_gnb .btn_case .more_btn');
+            let span1 = $('footer nav .f_gnb .btn_case .more_btn span:nth-child(1)');
+            let fDepth02 = $('footer nav .f_gnb .f_depth01 .f_depth02');
+            let fGnb = $('footer nav .f_gnb');
+
+            moreBtn.click(function () {
+                if (span1.css('height') == '15px') {
+                    moreBtn.addClass('on');
+                    fDepth02.slideDown();
+                } else {
+                    moreBtn.removeClass('on');
+                    fDepth02.slideUp();
+                }
+            })
         });
     </script>
 </head>
@@ -683,22 +731,28 @@
                                 </div> <!-- menu_img end -->
 
                                 <div class="menu_info">
-                                    <h3>NEW</h3>
-                                    <span>신메뉴</span>
+                                    <div class="menu_tag">
+                                        <h3>NEW</h3>
+                                        <span>신메뉴</span>
+                                    </div> <!-- menu_tag end -->
 
-                                    <figure class="hot">
-                                        <img src="img/cont01/hot.png" alt="">
-                                    </figure> <!-- hot end -->
+                                    <div class="menu_text">
+                                        <figure class="hot">
+                                            <img src="img/cont01/hot.png" alt="">
+                                        </figure> <!-- hot end -->
 
-                                    <h4>Beef Loin & Guacamole Taco</h4>
-                                    <strong>￦18,500</strong>
+                                        <h4>Beef Loin & Guacamole Taco<span class="m_hot"><img src="img/cont01/hot.png"
+                                                    alt=""></span></h4>
+                                        <strong>￦18,500</strong>
 
-                                    <p>블랙 케이준 시즈닝 된 부드러운 우삼겹과 매콤한 청양 과카몰리, 치폴레 마요 소스의 마일드한 조화를 즐기는
-                                        우삼겹 & 과카몰리 맛있타코</p>
+                                        <p>블랙 케이준 시즈닝 된 부드러운 우삼겹과 매콤한 청양 과카몰리, 치폴레 마요 소스의 마일드한 조화를 즐기는
+                                            우삼겹 & 과카몰리 맛있타코</p>
+                                    </div> <!-- menu_text end -->
 
                                     <ul>
-                                        <li>※ 해당 메뉴에는 '고수(Cilantro)'가 가미된 '피코 데 가요'와 '고수(Cilantro) & 파슬리 찹'이 들어갑니다.</li>
-                                        <li>※ ​피코 데 가요 : 토마토, 양파, 고추, 고수 등으로 만든 소스</li>
+                                        <li class="caution">※ 해당 메뉴에는 '고수(Cilantro)'가 가미된 '피코 데 가요'와 '고수(Cilantro) & 파슬리
+                                            찹'이 들어갑니다.</li>
+                                        <li class="caution">※ ​피코 데 가요 : 토마토, 양파, 고추, 고수 등으로 만든 소스</li>
                                         <li>※ 특정 원재료에 알레르기가 있으신 경우 매장에 사전 문의 부탁드립니다.</li>
                                     </ul>
                                 </div> <!-- menu_info end -->
@@ -712,22 +766,28 @@
                                 </div> <!-- menu_img end -->
 
                                 <div class="menu_info">
-                                    <h3>NEW</h3>
-                                    <span>신메뉴</span>
+                                    <div class="menu_tag">
+                                        <h3>NEW</h3>
+                                        <span>신메뉴</span>
+                                    </div> <!-- menu_tag end -->
 
-                                    <figure class="hot">
-                                        <img src="img/cont01/hot.png" alt="">
-                                    </figure> <!-- hot end -->
+                                    <div class="menu_text">
+                                        <figure class="hot">
+                                            <img src="img/cont01/hot.png" alt="">
+                                        </figure> <!-- hot end -->
 
-                                    <h4>Holymoly Guacamole Nacho Pizza</h4>
-                                    <strong>￦26,800</strong>
+                                        <h4>Holymoly Guacamole Nacho Pizza<span class="m_hot"><img
+                                                    src="img/cont01/hot.png" alt=""></span></h4>
+                                        <strong>￦26,800</strong>
 
-                                    <p>매콤한 칠리 소스에 피코 데 가요, 나초 칩이 올라간 피자를
-                                        ​청양 과카몰리, 사워 크림과 곁들여 즐기는 멕시칸 스타일의 홀리몰리 과카몰리 나초 피자</p>
+                                        <p>매콤한 칠리 소스에 피코 데 가요, 나초 칩이 올라간 피자를 ​청양 과카몰리, 사워 크림과 곁들여 즐기는 멕시칸 스타일의 홀리몰리 과카몰리
+                                            나초 피자</p>
+                                    </div> <!-- menu_text end -->
 
                                     <ul>
-                                        <li>※ 해당 메뉴에는 '고수(Cilantro)'가 가미된 '피코 데 가요'와 '고수(Cilantro) & 파슬리 찹'이 들어갑니다.</li>
-                                        <li>※ ​피코 데 가요 : 토마토, 양파, 고추, 고수 등으로 만든 소스</li>
+                                        <li class="caution">※ 해당 메뉴에는 '고수(Cilantro)'가 가미된 '피코 데 가요'와 '고수(Cilantro) & 파슬리
+                                            찹'이 들어갑니다.</li>
+                                        <li class="caution">※ ​피코 데 가요 : 토마토, 양파, 고추, 고수 등으로 만든 소스</li>
                                         <li>※ 특정 원재료에 알레르기가 있으신 경우 매장에 사전 문의 부탁드립니다.</li>
                                     </ul>
                                 </div> <!-- menu_info end -->
@@ -741,21 +801,27 @@
                                 </div> <!-- menu_img end -->
 
                                 <div class="menu_info">
-                                    <h3>NEW</h3>
-                                    <span>신메뉴</span>
+                                    <div class="menu_tag">
+                                        <h3>NEW</h3>
+                                        <span>신메뉴</span>
+                                    </div> <!-- menu_tag end -->
 
-                                    <figure class="hot">
-                                        <img src="img/cont01/hot.png" alt="">
-                                    </figure> <!-- hot end -->
+                                    <div class="menu_text">
+                                        <figure class="hot">
+                                            <img src="img/cont01/hot.png" alt="">
+                                        </figure> <!-- hot end -->
 
-                                    <h4>Super Sweet Corn Harmonica Steak</h4>
-                                    <strong>￦49,800 (200g)</strong>
+                                        <h4>Super Sweet Corn Harmonica Steak<span class="m_hot"><img
+                                                    src="img/cont01/hot.png" alt=""></span></h4>
+                                        <strong>￦49,800 (200g)</strong>
 
-                                    <p>그린 키위 살사 소스가 어우러진 채끝 스테이크와 갈릭 타코 시즈닝이 더해진 스매시드 포테이토, 초당 콘 립을
-                                        함께 즐기는 초당옥수수 하모니카 스테이크</p>
+                                        <p>그린 키위 살사 소스가 어우러진 채끝 스테이크와 갈릭 타코 시즈닝이 더해진 스매시드 포테이토, 초당 콘 립을
+                                            함께 즐기는 초당옥수수 하모니카 스테이크</p>
+                                    </div> <!-- menu_text end -->
+
                                     <ul>
-                                        <li>※ 해당 메뉴에는 고수(Cilantro)가 가미된 '그린 키위 살사 소스'가 들어갑니다.</li>
-                                        <li>※ 15,000원 추가 시 300g으로 제공됩니다.</li>
+                                        <li class="caution">※ 해당 메뉴에는 고수(Cilantro)가 가미된 '그린 키위 살사 소스'가 들어갑니다.</li>
+                                        <li class="caution">※ 15,000원 추가 시 300g으로 제공됩니다.</li>
                                         <li>※ 특정 원재료에 알레르기가 있으신 경우 매장에 사전 문의 부탁드립니다.</li>
                                     </ul>
                                 </div> <!-- menu_info end -->
@@ -769,13 +835,18 @@
                                 </div> <!-- menu_img end -->
 
                                 <div class="menu_info">
-                                    <h3>NEW</h3>
-                                    <span>신메뉴</span>
+                                    <div class="menu_tag">
+                                        <h3>NEW</h3>
+                                        <span>신메뉴</span>
+                                    </div> <!-- menu_tag end -->
 
-                                    <h4>Lime Ginger Margarita</h4>
-                                    <strong>￦9,800</strong>
+                                    <div class="menu_text">
+                                        <h4>Lime Ginger Margarita</h4>
+                                        <strong>￦9,800</strong>
 
-                                    <p>생강청과 라임이 은은한 탄산감의 진저 비어와 어우러진 라임 생강나는 마가리타(논알콜)</p>
+                                        <p>생강청과 라임이 은은한 탄산감의 진저 비어와 어우러진 라임 생강나는 마가리타(논알콜)</p>
+                                    </div> <!-- menu_text end -->
+
                                     <ul>
                                         <li>※ 특정 원재료에 알레르기가 있으신 경우 매장에 사전 문의 부탁드립니다.</li>
                                     </ul>
@@ -790,13 +861,18 @@
                                 </div> <!-- menu_img end -->
 
                                 <div class="menu_info">
-                                    <h3>NEW</h3>
-                                    <span>신메뉴</span>
+                                    <div class="menu_tag">
+                                        <h3>NEW</h3>
+                                        <span>신메뉴</span>
+                                    </div> <!-- menu_tag end -->
 
-                                    <h4>Very Berry Strawberry Margarita</h4>
-                                    <strong>￦9,800</strong>
+                                    <div class="menu_text">
+                                        <h4>Very Berry Strawberry Margarita</h4>
+                                        <strong>￦9,800</strong>
 
-                                    <p>시원한 레몬소다와 달콤한 딸기가 만나 상큼달콤한 맛을 느낄 수 있는 베리 베리 스트로베리 마가리타(논알콜)</p>
+                                        <p>시원한 레몬소다와 달콤한 딸기가 만나 상큼달콤한 맛을 느낄 수 있는 베리 베리 스트로베리 마가리타(논알콜)</p>
+                                    </div> <!-- menu_text end -->
+
                                     <ul>
                                         <li>※ 특정 원재료에 알레르기가 있으신 경우 매장에 사전 문의 부탁드립니다.</li>
                                     </ul>
@@ -820,16 +896,20 @@
                                 </div> <!-- menu_img end -->
 
                                 <div class="menu_info">
-                                    <h3>BREAD</h3>
-                                    <span>식전빵</span>
+                                    <div class="menu_tag">
+                                        <h3>BREAD</h3>
+                                        <span>식전빵</span>
+                                    </div> <!-- menu_tag end -->
 
-                                    <h4>Garlic Pane</h4>
-                                    <strong>￦7,500</strong>
+                                    <div class="menu_text">
+                                        <h4>Garlic Pane</h4>
+                                        <strong>￦7,500</strong>
 
-                                    <p>갈릭 소스가 듬뿍 스며들어 더욱 촉촉한 매드포갈릭의 오리지널 마늘빵 (2조각)</p>
+                                        <p>갈릭 소스가 듬뿍 스며들어 더욱 촉촉한 매드포갈릭의 오리지널 마늘빵 (2조각)</p>
+                                    </div> <!-- menu_text end -->
 
                                     <ul>
-                                        <li>※ 3,600원 추가 시 1조각이 추가 제공됩니다.</li>
+                                        <li class="caution">※ 3,600원 추가 시 1조각이 추가 제공됩니다.</li>
                                         <li>※ 특정 원재료에 알레르기가 있으신 경우 매장에 사전 문의 부탁드립니다.</li>
                                     </ul>
                                 </div> <!-- menu_info end -->
@@ -843,13 +923,18 @@
                                 </div> <!-- menu_img end -->
 
                                 <div class="menu_info">
-                                    <h3>BREAD</h3>
-                                    <span>식전빵</span>
+                                    <div class="menu_tag">
+                                        <h3>BREAD</h3>
+                                        <span>식전빵</span>
+                                    </div> <!-- menu_tag end -->
 
-                                    <h4>Dracula Killer</h4>
-                                    <strong>￦19,500</strong>
+                                    <div class="menu_text">
+                                        <h4>Dracula Killer</h4>
+                                        <strong>￦19,500</strong>
 
-                                    <p>엔쵸비와 올리브 오일에 구운 통마늘 위에 그라나파다노 치즈를 얹어 마늘빵과 함께 제공되는 요리</p>
+                                        <p>엔쵸비와 올리브 오일에 구운 통마늘 위에 그라나파다노 치즈를 얹어 마늘빵과 함께 제공되는 요리</p>
+                                    </div> <!-- menu_text end -->
+
                                     <ul>
                                         <li>※ 특정 원재료에 알레르기가 있으신 경우 매장에 사전 문의 부탁드립니다.</li>
                                     </ul>
@@ -864,19 +949,25 @@
                                 </div> <!-- menu_img end -->
 
                                 <div class="menu_info">
-                                    <h3>STARTER</h3>
-                                    <span>전채요리</span>
+                                    <div class="menu_tag">
+                                        <h3>STARTER</h3>
+                                        <span>전채요리</span>
+                                    </div> <!-- menu_tag end -->
 
-                                    <figure class="hot">
-                                        <img src="img/cont01/hot.png" alt="">
-                                    </figure> <!-- hot end -->
+                                    <div class="menu_text">
+                                        <figure class="hot">
+                                            <img src="img/cont01/hot.png" alt="">
+                                        </figure> <!-- hot end -->
 
-                                    <h4>Tomato Steamed Mussel</h4>
-                                    <strong>￦25,900</strong>
+                                        <h4>Tomato Steamed Mussel<span class="m_hot"><img src="img/cont01/hot.png"
+                                                    alt=""></span></h4>
+                                        <strong>￦25,900</strong>
 
-                                    <p>신선한 홍합에 마늘을 넣고 와인과 토마토 소스로 졸인 푸짐한 홍합찜</p>
+                                        <p>신선한 홍합에 마늘을 넣고 와인과 토마토 소스로 졸인 푸짐한 홍합찜</p>
+                                    </div> <!-- menu_text end -->
+
                                     <ul>
-                                        <li>※ 매장 상황에 따라 메뉴 제공이 어려울 수 있습니다.</li>
+                                        <li class="caution">※ 매장 상황에 따라 메뉴 제공이 어려울 수 있습니다.</li>
                                         <li>※ 특정 원재료에 알레르기가 있으신 경우 매장에 사전 문의 부탁드립니다.</li>
                                     </ul>
                                 </div> <!-- menu_info end -->
@@ -890,17 +981,23 @@
                                 </div> <!-- menu_img end -->
 
                                 <div class="menu_info">
-                                    <h3>STARTER</h3>
-                                    <span>전채요리</span>
+                                    <div class="menu_tag">
+                                        <h3>STARTER</h3>
+                                        <span>전채요리</span>
+                                    </div> <!-- menu_tag end -->
 
-                                    <figure class="hot">
-                                        <img src="img/cont01/hot.png" alt="">
-                                    </figure> <!-- hot end -->
+                                    <div class="menu_text">
+                                        <figure class="hot">
+                                            <img src="img/cont01/hot.png" alt="">
+                                        </figure> <!-- hot end -->
 
-                                    <h4>Olive Shrimp Cazuela</h4>
-                                    <strong>￦27,900</strong>
+                                        <h4>Olive Shrimp Cazuela<span class="m_hot"><img src="img/cont01/hot.png"
+                                                    alt=""></span></h4>
+                                        <strong>￦27,900</strong>
 
-                                    <p>갈릭과 올리브가 듬뿍 들어간 지중해풍 소스에 푸짐한 새우를 껍질째 매콤하게 조리한 슈림프 카슈엘라</p>
+                                        <p>갈릭과 올리브가 듬뿍 들어간 지중해풍 소스에 푸짐한 새우를 껍질째 매콤하게 조리한 슈림프 카슈엘라</p>
+                                    </div> <!-- menu_text end -->
+
                                     <ul>
                                         <li>※ 특정 원재료에 알레르기가 있으신 경우 매장에 사전 문의 부탁드립니다.</li>
                                     </ul>
@@ -924,13 +1021,18 @@
                                 </div> <!-- menu_img end -->
 
                                 <div class="menu_info">
-                                    <h3>SALAD</h3>
-                                    <span>샐러드</span>
+                                    <div class="menu_tag">
+                                        <h3>SALAD</h3>
+                                        <span>샐러드</span>
+                                    </div> <!-- menu_tag end -->
 
-                                    <h4>Mad for Garlic Tower Salad</h4>
-                                    <strong>￦19,900</strong>
+                                    <div class="menu_text">
+                                        <h4>Mad for Garlic Tower Salad</h4>
+                                        <strong>￦19,900</strong>
 
-                                    <p>신선한 샐러드와 구운 닭가슴살, 베이컨, 체다치즈, 애플망고가 치폴레 비네그레트 드레싱과 어우러진 매드포갈릭 타워 샐러드</p>
+                                        <p>신선한 샐러드와 구운 닭가슴살, 베이컨, 체다치즈, 애플망고가 치폴레 비네그레트 드레싱과 어우러진 매드포갈릭 타워 샐러드</p>
+                                    </div> <!-- menu_text end -->
+
                                     <ul>
                                         <li>※ 특정 원재료에 알레르기가 있으신 경우 매장에 사전 문의 부탁드립니다.</li>
                                     </ul>
@@ -945,13 +1047,18 @@
                                 </div> <!-- menu_img end -->
 
                                 <div class="menu_info">
-                                    <h3>SALAD</h3>
-                                    <span>샐러드</span>
+                                    <div class="menu_tag">
+                                        <h3>SALAD</h3>
+                                        <span>샐러드</span>
+                                    </div> <!-- menu_tag end -->
 
-                                    <h4>Caesar Salad</h4>
-                                    <strong>￦20,900</strong>
+                                    <div class="menu_text">
+                                        <h4>Caesar Salad</h4>
+                                        <strong>￦20,900</strong>
 
-                                    <p>신선한 로메인, 베이컨, 크루통에 그라나 파다노 치즈를 갈아서 얹은 샐러드</p>
+                                        <p>신선한 로메인, 베이컨, 크루통에 그라나 파다노 치즈를 갈아서 얹은 샐러드</p>
+                                    </div> <!-- menu_text end -->
+
                                     <ul>
                                         <li>※ 특정 원재료에 알레르기가 있으신 경우 매장에 사전 문의 부탁드립니다.</li>
                                     </ul>
@@ -966,13 +1073,18 @@
                                 </div> <!-- menu_img end -->
 
                                 <div class="menu_info">
-                                    <h3>SALAD</h3>
-                                    <span>샐러드</span>
+                                    <div class="menu_tag">
+                                        <h3>SALAD</h3>
+                                        <span>샐러드</span>
+                                    </div> <!-- menu_tag end -->
 
-                                    <h4>Melting Camembert Kale Salad</h4>
-                                    <strong>￦25,900</strong>
+                                    <div class="menu_text">
+                                        <h4>Melting Camembert Kale Salad</h4>
+                                        <strong>￦25,900</strong>
 
-                                    <p>신선한 케일, 미니코스, 비타민을 마멀레이드 드레싱에 버무려 따뜻한 갈릭 카망베르와 함께 즐기는 멜팅 카망베르 케일 샐러드</p>
+                                        <p>신선한 케일, 미니코스, 비타민을 마멀레이드 드레싱에 버무려 따뜻한 갈릭 카망베르와 함께 즐기는 멜팅 카망베르 케일 샐러드</p>
+                                    </div> <!-- menu_text end -->
+
                                     <ul>
                                         <li>※ 특정 원재료에 알레르기가 있으신 경우 매장에 사전 문의 부탁드립니다.</li>
                                     </ul>
@@ -996,18 +1108,29 @@
                                 </div> <!-- menu_img end -->
 
                                 <div class="menu_info">
-                                    <h3>PASTA</h3>
-                                    <span>파스타</span>
+                                    <div class="menu_tag">
+                                        <h3>PASTA</h3>
+                                        <span>파스타</span>
+                                    </div> <!-- menu_tag end -->
 
-                                    <figure class="hot">
-                                        <img src="img/cont01/hot.png" alt="">
-                                        <img src="img/cont01/hot.png" alt="">
-                                    </figure> <!-- hot end -->
+                                    <div class="menu_text">
+                                        <figure class="hot">
+                                            <img src="img/cont01/hot.png" alt="">
+                                            <img src="img/cont01/hot.png" alt="">
+                                        </figure> <!-- hot end -->
 
-                                    <h4>Garlicpeno Pasta</h4>
-                                    <strong>￦24,900</strong>
+                                        <h4>
+                                            Garlicpeno Pasta
+                                            <span class="m_hot">
+                                                <img src="img/cont01/hot.png" alt="">
+                                                <img src="img/cont01/hot.png" alt="">
+                                            </span>
+                                        </h4>
+                                        <strong>￦24,900</strong>
 
-                                    <p>매드포갈릭의 가장 매콤한 파스타로 할라페뇨와 마늘의 맛을 풍부하게 느낄 수 있는 올리브 오일 파스타</p>
+                                        <p>매드포갈릭의 가장 매콤한 파스타로 할라페뇨와 마늘의 맛을 풍부하게 느낄 수 있는 올리브 오일 파스타</p>
+                                    </div> <!-- menu_text end -->
+
                                     <ul>
                                         <li>※ 특정 원재료에 알레르기가 있으신 경우 매장에 사전 문의 부탁드립니다.</li>
                                     </ul>
@@ -1022,18 +1145,29 @@
                                 </div> <!-- menu_img end -->
 
                                 <div class="menu_info">
-                                    <h3>PASTA</h3>
-                                    <span>파스타</span>
+                                    <div class="menu_tag">
+                                        <h3>PASTA</h3>
+                                        <span>파스타</span>
+                                    </div> <!-- menu_tag end -->
 
-                                    <figure class="hot">
-                                        <img src="img/cont01/hot.png" alt="">
-                                        <img src="img/cont01/hot.png" alt="">
-                                    </figure> <!-- hot end -->
+                                    <div class="menu_text">
+                                        <figure class="hot">
+                                            <img src="img/cont01/hot.png" alt="">
+                                            <img src="img/cont01/hot.png" alt="">
+                                        </figure> <!-- hot end -->
 
-                                    <h4>Triple Garlic Pasta</h4>
-                                    <strong>￦25,400</strong>
+                                        <h4>
+                                            Triple Garlic Pasta
+                                            <span class="m_hot">
+                                                <img src="img/cont01/hot.png" alt="">
+                                                <img src="img/cont01/hot.png" alt="">
+                                            </span>
+                                        </h4>
+                                        <strong>￦25,400</strong>
 
-                                    <p>신선한 홍합, 새우, 깔라마리와 함께 마늘종이 어우러진 매콤한 해산물 파스타</p>
+                                        <p>신선한 홍합, 새우, 깔라마리와 함께 마늘종이 어우러진 매콤한 해산물 파스타</p>
+                                    </div> <!-- menu_text end -->
+
                                     <ul>
                                         <li>※ 특정 원재료에 알레르기가 있으신 경우 매장에 사전 문의 부탁드립니다.</li>
                                     </ul>
@@ -1048,18 +1182,28 @@
                                 </div> <!-- menu_img end -->
 
                                 <div class="menu_info">
-                                    <h3>PASTA</h3>
-                                    <span>파스타</span>
+                                    <div class="menu_tag">
+                                        <h3>PASTA</h3>
+                                        <span>파스타</span>
+                                    </div> <!-- menu_tag end -->
 
-                                    <figure class="hot">
-                                        <img src="img/cont01/hot.png" alt="">
-                                        <img src="img/cont01/hot.png" alt="">
-                                    </figure> <!-- hot end -->
+                                    <div class="menu_text">
+                                        <figure class="hot">
+                                            <img src="img/cont01/hot.png" alt="">
+                                            <img src="img/cont01/hot.png" alt="">
+                                        </figure> <!-- hot end -->
 
-                                    <h4>Arrabbiata</h4>
-                                    <strong>￦25,900</strong>
+                                        <h4>Arrabbiata
+                                            <span class="m_hot">
+                                                <img src="img/cont01/hot.png" alt="">
+                                                <img src="img/cont01/hot.png" alt="">
+                                            </span>
+                                        </h4>
+                                        <strong>￦25,900</strong>
 
-                                    <p>매드포갈릭 특제 노하우로 만든 매콤한 토마토 소스 파스타</p>
+                                        <p>매드포갈릭 특제 노하우로 만든 매콤한 토마토 소스 파스타</p>
+                                    </div> <!-- menu_text end -->
+
                                     <ul>
                                         <li>※ 특정 원재료에 알레르기가 있으신 경우 매장에 사전 문의 부탁드립니다.</li>
                                     </ul>
@@ -1074,13 +1218,18 @@
                                 </div> <!-- menu_img end -->
 
                                 <div class="menu_info">
-                                    <h3>PASTA</h3>
-                                    <span>파스타</span>
+                                    <div class="menu_tag">
+                                        <h3>PASTA</h3>
+                                        <span>파스타</span>
+                                    </div> <!-- menu_tag end -->
 
-                                    <h4>Garlic Carbonara</h4>
-                                    <strong>￦25,900</strong>
+                                    <div class="menu_text">
+                                        <h4>Garlic Carbonara</h4>
+                                        <strong>￦25,900</strong>
 
-                                    <p>갈릭 크림 소스와 베이컨이 어우러진 고소한 매드포갈릭 스타일의 까르보나라</p>
+                                        <p>갈릭 크림 소스와 베이컨이 어우러진 고소한 매드포갈릭 스타일의 까르보나라</p>
+                                    </div> <!-- menu_text end -->
+
                                     <ul>
                                         <li>※ 특정 원재료에 알레르기가 있으신 경우 매장에 사전 문의 부탁드립니다.</li>
                                     </ul>
@@ -1095,17 +1244,26 @@
                                 </div> <!-- menu_img end -->
 
                                 <div class="menu_info">
-                                    <h3>PASTA</h3>
-                                    <span>파스타</span>
+                                    <div class="menu_tag">
+                                        <h3>PASTA</h3>
+                                        <span>파스타</span>
+                                    </div> <!-- menu_tag end -->
 
-                                    <figure class="hot">
-                                        <img src="img/cont01/hot.png" alt="">
-                                    </figure> <!-- hot end -->
+                                    <div class="menu_text">
+                                        <figure class="hot">
+                                            <img src="img/cont01/hot.png" alt="">
+                                        </figure> <!-- hot end -->
 
-                                    <h4>Naeng-i Crab Pasta</h4>
-                                    <strong>￦26,800</strong>
+                                        <h4>Naeng-i Crab Pasta
+                                            <span class="m_hot">
+                                                <img src="img/cont01/hot.png" alt="">
+                                            </span>
+                                        </h4>
+                                        <strong>￦26,800</strong>
 
-                                    <p>바다향을 품은 꽃게와 향긋한 냉이 페스토가 어우러진 냉이 꽃게 파스타</p>
+                                        <p>바다향을 품은 꽃게와 향긋한 냉이 페스토가 어우러진 냉이 꽃게 파스타</p>
+                                    </div> <!-- menu_text end -->
+
                                     <ul>
                                         <li>※ 특정 원재료에 알레르기가 있으신 경우 매장에 사전 문의 부탁드립니다.</li>
                                     </ul>
@@ -1120,17 +1278,26 @@
                                 </div> <!-- menu_img end -->
 
                                 <div class="menu_info">
-                                    <h3>PASTA</h3>
-                                    <span>파스타</span>
+                                    <div class="menu_tag">
+                                        <h3>PASTA</h3>
+                                        <span>파스타</span>
+                                    </div> <!-- menu_tag end -->
 
-                                    <figure class="hot">
-                                        <img src="img/cont01/hot.png" alt="">
-                                    </figure> <!-- hot end -->
+                                    <div class="menu_text">
+                                        <figure class="hot">
+                                            <img src="img/cont01/hot.png" alt="">
+                                        </figure> <!-- hot end -->
 
-                                    <h4>Spicy Myeongran Oil Pasta</h4>
-                                    <strong>￦26,800</strong>
+                                        <h4>Spicy Myeongran Oil Pasta
+                                            <span class="m_hot">
+                                                <img src="img/cont01/hot.png" alt="">
+                                            </span>
+                                        </h4>
+                                        <strong>￦26,800</strong>
 
-                                    <p>저염 백명란과 홍합 육수로 바다 향을 가득 내고 3가지 고추로 매콤한 맛을 더한 스파이시 명란 오일 파스타</p>
+                                        <p>저염 백명란과 홍합 육수로 바다 향을 가득 내고 3가지 고추로 매콤한 맛을 더한 스파이시 명란 오일 파스타</p>
+                                    </div> <!-- menu_text end -->
+
                                     <ul>
                                         <li>※ 특정 원재료에 알레르기가 있으신 경우 매장에 사전 문의 부탁드립니다.</li>
                                     </ul>
@@ -1145,19 +1312,28 @@
                                 </div> <!-- menu_img end -->
 
                                 <div class="menu_info">
-                                    <h3>PASTA</h3>
-                                    <span>파스타</span>
+                                    <div class="menu_tag">
+                                        <h3>PASTA</h3>
+                                        <span>파스타</span>
+                                    </div> <!-- menu_tag end -->
 
-                                    <figure class="hot">
-                                        <img src="img/cont01/hot.png" alt="">
-                                    </figure> <!-- hot end -->
+                                    <div class="menu_text">
+                                        <figure class="hot">
+                                            <img src="img/cont01/hot.png" alt="">
+                                        </figure> <!-- hot end -->
 
-                                    <h4>Fresh Ocean Soup Pasta</h4>
-                                    <strong>￦27,200</strong>
+                                        <h4>Fresh Ocean Soup Pasta
+                                            <span class="m_hot">
+                                                <img src="img/cont01/hot.png" alt="">
+                                            </span>
+                                        </h4>
+                                        <strong>￦27,200</strong>
 
-                                    <p>신선한 바지락의 시원한 맛이 다양한 해산물과 어우러진 수프 파스타</p>
+                                        <p>신선한 바지락의 시원한 맛이 다양한 해산물과 어우러진 수프 파스타</p>
+                                    </div> <!-- menu_text end -->
+
                                     <ul>
-                                        <li>※ 제공되는 식재료는 시즌에 따라 대체 식재료로 제공될 수 있습니다.</li>
+                                        <li class="caution">※ 제공되는 식재료는 시즌에 따라 대체 식재료로 제공될 수 있습니다.</li>
                                         <li>※ 특정 원재료에 알레르기가 있으신 경우 매장에 사전 문의 부탁드립니다.</li>
                                     </ul>
                                 </div> <!-- menu_info end -->
@@ -1171,13 +1347,18 @@
                                 </div> <!-- menu_img end -->
 
                                 <div class="menu_info">
-                                    <h3>PASTA</h3>
-                                    <span>파스타</span>
+                                    <div class="menu_tag">
+                                        <h3>PASTA</h3>
+                                        <span>파스타</span>
+                                    </div> <!-- menu_tag end -->
 
-                                    <h4>Crab & Lobster Pasta</h4>
-                                    <strong>￦27,900</strong>
+                                    <div class="menu_text">
+                                        <h4>Crab & Lobster Pasta</h4>
+                                        <strong>￦27,900</strong>
 
-                                    <p>입안에서 사르르 녹는 게살과 탱글한 바닷가재살이 고소한 갈릭 크림 소스와 함께 입안에 녹아드는 파스타</p>
+                                        <p>입안에서 사르르 녹는 게살과 탱글한 바닷가재살이 고소한 갈릭 크림 소스와 함께 입안에 녹아드는 파스타</p>
+                                    </div> <!-- menu_text end -->
+
                                     <ul>
                                         <li>※ 특정 원재료에 알레르기가 있으신 경우 매장에 사전 문의 부탁드립니다.</li>
                                     </ul>
@@ -1201,22 +1382,34 @@
                                 </div> <!-- menu_img end -->
 
                                 <div class="menu_info">
-                                    <h3>PIZZA</h3>
-                                    <span>피자</span>
+                                    <div class="menu_tag">
+                                        <h3>PIZZA</h3>
+                                        <span>피자</span>
+                                    </div> <!-- menu_tag end -->
 
-                                    <figure class="hot">
-                                        <img src="img/cont01/hot.png" alt="">
-                                    </figure> <!-- hot end -->
+                                    <div class="menu_text">
+                                        <figure class="hot">
+                                            <img src="img/cont01/hot.png" alt="">
+                                        </figure> <!-- hot end -->
 
-                                    <h4>Pumpkin Spicy Cream Pizza</h4>
-                                    <strong>￦25,800</strong>
+                                        <h4>Pumpkin Spicy Cream Pizza
+                                            <span class="m_hot">
+                                                <img src="img/cont01/hot.png" alt="">
+                                            </span>
+                                        </h4>
+                                        <strong>￦25,800</strong>
 
-                                    <p>듬뿍 넣은 단호박, 브로콜리, 그린빈, 파프리카와 스파이시 치킨, 청양 크림 소스로 매콤한 맛을 더한 피자</p>
+                                        <p>듬뿍 넣은 단호박, 브로콜리, 그린빈, 파프리카와 스파이시 치킨, 청양 크림 소스로 매콤한 맛을 더한 피자</p>
+                                    </div> <!-- menu_text end -->
 
                                     <ul>
-                                        <li>※ 나폴리 스페셜 매장에서는 이탈리아 나폴리 피자협회(AVPN)에서 인증 받은 밀가루의 쫄깃한 나폴리 도우를 경험할 수
+                                        <li class="caution">※ 나폴리 스페셜 매장에서는 이탈리아 나폴리 피자협회(AVPN)에서 인증 받은 밀가루의 쫄깃한
+                                            나폴리 도우를
+                                            경험할 수
                                             있습니다.</li>
-                                        <li>※ 나폴리 도우로 변경 시 1,000원 추가 (매장마다 피자도우 제공 여부가 상이하므로 자세한 사항은 매장에 문의하시길 바랍니다.)
+                                        <li class="caution">※ 나폴리 도우로 변경 시 1,000원 추가 (매장마다 피자도우 제공 여부가 상이하므로 자세한
+                                            사항은 매장에
+                                            문의하시길 바랍니다.)
                                         </li>
                                         <li>※ 특정 원재료에 알레르기가 있으신 경우 매장에 사전 문의 부탁드립니다.</li>
                                     </ul>
@@ -1231,18 +1424,26 @@
                                 </div> <!-- menu_img end -->
 
                                 <div class="menu_info">
-                                    <h3>PIZZA</h3>
-                                    <span>피자</span>
+                                    <div class="menu_tag">
+                                        <h3>PIZZA</h3>
+                                        <span>피자</span>
+                                    </div> <!-- menu_tag end -->
 
-                                    <h4>Gorgonzola Pizza</h4>
-                                    <strong>￦26,500</strong>
+                                    <div class="menu_text">
+                                        <h4>Gorgonzola Pizza</h4>
+                                        <strong>￦26,500</strong>
 
-                                    <p>이태리 특유의 진한 고르곤졸라 치즈와 달콤한 꿀의 궁합이 환상인 피자</p>
+                                        <p>이태리 특유의 진한 고르곤졸라 치즈와 달콤한 꿀의 궁합이 환상인 피자</p>
+                                    </div> <!-- menu_text end -->
 
                                     <ul>
-                                        <li>※ 나폴리 스페셜 매장에서는 이탈리아 나폴리 피자협회(AVPN)에서 인증 받은 밀가루의 쫄깃한 나폴리 도우를 경험할 수
+                                        <li class="caution">※ 나폴리 스페셜 매장에서는 이탈리아 나폴리 피자협회(AVPN)에서 인증 받은 밀가루의 쫄깃한
+                                            나폴리 도우를
+                                            경험할 수
                                             있습니다.</li>
-                                        <li>※ 나폴리 도우로 변경 시 1,000원 추가 (매장마다 피자도우 제공 여부가 상이하므로 자세한 사항은 매장에 문의하시길 바랍니다.)
+                                        <li class="caution">※ 나폴리 도우로 변경 시 1,000원 추가 (매장마다 피자도우 제공 여부가 상이하므로 자세한
+                                            사항은 매장에
+                                            문의하시길 바랍니다.)
                                         </li>
                                         <li>※ 특정 원재료에 알레르기가 있으신 경우 매장에 사전 문의 부탁드립니다.</li>
                                     </ul>
@@ -1257,18 +1458,26 @@
                                 </div> <!-- menu_img end -->
 
                                 <div class="menu_info">
-                                    <h3>PIZZA</h3>
-                                    <span>피자</span>
+                                    <div class="menu_tag">
+                                        <h3>PIZZA</h3>
+                                        <span>피자</span>
+                                    </div> <!-- menu_tag end -->
 
-                                    <h4>Garlic Snowing Pizza</h4>
-                                    <strong>￦26,900</strong>
+                                    <div class="menu_text">
+                                        <h4>Garlic Snowing Pizza</h4>
+                                        <strong>￦26,900</strong>
 
-                                    <p>화이트 소스에 새우, 파인애플, 고소한 튀긴 마늘이 어우러진 매드포갈릭 시그니처 피자</p>
+                                        <p>화이트 소스에 새우, 파인애플, 고소한 튀긴 마늘이 어우러진 매드포갈릭 시그니처 피자</p>
+                                    </div> <!-- menu_text end -->
 
                                     <ul>
-                                        <li>※ 나폴리 스페셜 매장에서는 이탈리아 나폴리 피자협회(AVPN)에서 인증 받은 밀가루의 쫄깃한 나폴리 도우를 경험할 수
+                                        <li class="caution">※ 나폴리 스페셜 매장에서는 이탈리아 나폴리 피자협회(AVPN)에서 인증 받은 밀가루의 쫄깃한
+                                            나폴리 도우를
+                                            경험할 수
                                             있습니다.</li>
-                                        <li>※ 나폴리 도우로 변경 시 1,000원 추가 (매장마다 피자도우 제공 여부가 상이하므로 자세한 사항은 매장에 문의하시길 바랍니다.)
+                                        <li class="caution">※ 나폴리 도우로 변경 시 1,000원 추가 (매장마다 피자도우 제공 여부가 상이하므로 자세한
+                                            사항은 매장에
+                                            문의하시길 바랍니다.)
                                         </li>
                                         <li>※ 특정 원재료에 알레르기가 있으신 경우 매장에 사전 문의 부탁드립니다.</li>
                                     </ul>
@@ -1283,23 +1492,36 @@
                                 </div> <!-- menu_img end -->
 
                                 <div class="menu_info">
-                                    <h3>PIZZA</h3>
-                                    <span>피자</span>
+                                    <div class="menu_tag">
+                                        <h3>PIZZA</h3>
+                                        <span>피자</span>
+                                    </div> <!-- menu_tag end -->
 
-                                    <figure class="hot">
-                                        <img src="img/cont01/hot.png" alt="">
-                                    </figure> <!-- hot end -->
+                                    <div class="menu_text">
+                                        <figure class="hot">
+                                            <img src="img/cont01/hot.png" alt="">
+                                        </figure> <!-- hot end -->
 
-                                    <h4>MAD Margherita Pizza</h4>
-                                    <strong>￦27,500</strong>
+                                        <h4>MAD Margherita Pizza
+                                            <span class="m_hot">
+                                                <img src="img/cont01/hot.png" alt="">
+                                            </span>
+                                        </h4>
+                                        <strong>￦27,500</strong>
 
-                                    <p>토마토 본연의 맛을 느낄 수 있는 토마토 소스와 달콤한 방울 토마토, 고소한 풍미의 모짜렐라 치즈가 어우러진 매드포갈릭만의 매드 마르게리타 피자
-                                    </p>
+                                        <p>토마토 본연의 맛을 느낄 수 있는 토마토 소스와 달콤한 방울 토마토, 고소한 풍미의 모짜렐라 치즈가 어우러진 매드포갈릭만의 매드
+                                            마르게리타 피자
+                                        </p>
+                                    </div> <!-- menu_text end -->
 
                                     <ul>
-                                        <li>※ 나폴리 스페셜 매장에서는 이탈리아 나폴리 피자협회(AVPN)에서 인증 받은 밀가루의 쫄깃한 나폴리 도우를 경험할 수
+                                        <li class="caution">※ 나폴리 스페셜 매장에서는 이탈리아 나폴리 피자협회(AVPN)에서 인증 받은 밀가루의 쫄깃한
+                                            나폴리 도우를
+                                            경험할 수
                                             있습니다.</li>
-                                        <li>※ 나폴리 도우로 변경 시 1,000원 추가 (매장마다 피자도우 제공 여부가 상이하므로 자세한 사항은 매장에 문의하시길 바랍니다.)
+                                        <li class="caution">※ 나폴리 도우로 변경 시 1,000원 추가 (매장마다 피자도우 제공 여부가 상이하므로 자세한
+                                            사항은 매장에
+                                            문의하시길 바랍니다.)
                                         </li>
                                         <li>※ 특정 원재료에 알레르기가 있으신 경우 매장에 사전 문의 부탁드립니다.</li>
                                     </ul>
@@ -1314,18 +1536,27 @@
                                 </div> <!-- menu_img end -->
 
                                 <div class="menu_info">
-                                    <h3>PIZZA</h3>
-                                    <span>피자</span>
+                                    <div class="menu_tag">
+                                        <h3>PIZZA</h3>
+                                        <span>피자</span>
+                                    </div> <!-- menu_tag end -->
 
-                                    <h4>Golden Basil Burrata Pizza</h4>
-                                    <strong>￦27,900</strong>
+                                    <div class="menu_text">
+                                        <h4>Golden Basil Burrata Pizza</h4>
+                                        <strong>￦27,900</strong>
 
-                                    <p>다테리노 품종의 프리미엄 골든 토마토 소스 위에 부라타 치즈, 모타델라 햄, 프레시 바질을 함께 즐기는 골든 바질 부라타 피자</p>
+                                        <p>다테리노 품종의 프리미엄 골든 토마토 소스 위에 부라타 치즈, 모타델라 햄, 프레시 바질을 함께 즐기는 골든 바질 부라타 피자
+                                        </p>
+                                    </div> <!-- menu_text end -->
 
                                     <ul>
-                                        <li>※ 나폴리 스페셜 매장에서는 이탈리아 나폴리 피자협회(AVPN)에서 인증 받은 밀가루의 쫄깃한 나폴리 도우를 경험할 수
+                                        <li class="caution">※ 나폴리 스페셜 매장에서는 이탈리아 나폴리 피자협회(AVPN)에서 인증 받은 밀가루의 쫄깃한
+                                            나폴리 도우를
+                                            경험할 수
                                             있습니다.</li>
-                                        <li>※ 나폴리 도우로 변경 시 1,000원 추가 (매장마다 피자도우 제공 여부가 상이하므로 자세한 사항은 매장에 문의하시길 바랍니다.)
+                                        <li class="caution">※ 나폴리 도우로 변경 시 1,000원 추가 (매장마다 피자도우 제공 여부가 상이하므로 자세한
+                                            사항은 매장에
+                                            문의하시길 바랍니다.)
                                         </li>
                                         <li>※ 특정 원재료에 알레르기가 있으신 경우 매장에 사전 문의 부탁드립니다.</li>
                                     </ul>
@@ -1349,20 +1580,28 @@
                                 </div> <!-- menu_img end -->
 
                                 <div class="menu_info">
-                                    <h3>RICE</h3>
-                                    <span>볶음밥</span>
+                                    <div class="menu_tag">
+                                        <h3>RICE</h3>
+                                        <span>볶음밥</span>
+                                    </div> <!-- menu_tag end -->
 
-                                    <figure class="hot">
-                                        <img src="img/cont01/hot.png" alt="">
-                                    </figure> <!-- hot end -->
+                                    <div class="menu_text">
+                                        <figure class="hot">
+                                            <img src="img/cont01/hot.png" alt="">
+                                        </figure> <!-- hot end -->
 
-                                    <h4>Variety Garlic Rice</h4>
-                                    <strong>￦26,500</strong>
+                                        <h4>Variety Garlic Rice
+                                            <span class="m_hot">
+                                                <img src="img/cont01/hot.png" alt="">
+                                            </span>
+                                        </h4>
+                                        <strong>￦26,500</strong>
 
-                                    <p>신선한 해산물을 앤쵸비에 매콤하게 볶아 다양한 맛의 갈릭과 함께 즐기는 버라이어티 갈릭 라이스</p>
+                                        <p>신선한 해산물을 앤쵸비에 매콤하게 볶아 다양한 맛의 갈릭과 함께 즐기는 버라이어티 갈릭 라이스</p>
+                                    </div> <!-- menu_text end -->
 
                                     <ul>
-                                        <li>※ 본 메뉴 사진은 실제와 다를 수 있습니다.</li>
+                                        <li class="caution">※ 본 메뉴 사진은 실제와 다를 수 있습니다.</li>
                                         <li>※ 특정 원재료에 알레르기가 있으신 경우 매장에 사전 문의 부탁드립니다.</li>
                                     </ul>
                                 </div> <!-- menu_info end -->
@@ -1376,17 +1615,25 @@
                                 </div> <!-- menu_img end -->
 
                                 <div class="menu_info">
-                                    <h3>RICE</h3>
-                                    <span>볶음밥</span>
+                                    <div class="menu_tag">
+                                        <h3>RICE</h3>
+                                        <span>볶음밥</span>
+                                    </div> <!-- menu_tag end -->
 
-                                    <figure class="hot">
-                                        <img src="img/cont01/hot.png" alt="">
-                                    </figure> <!-- hot end -->
+                                    <div class="menu_text">
+                                        <figure class="hot">
+                                            <img src="img/cont01/hot.png" alt="">
+                                        </figure> <!-- hot end -->
 
-                                    <h4>Garlic Sizzling Rice</h4>
-                                    <strong>￦27,800</strong>
+                                        <h4>Garlic Sizzling Rice
+                                            <span class="m_hot">
+                                                <img src="img/cont01/hot.png" alt="">
+                                            </span>
+                                        </h4>
+                                        <strong>￦27,800</strong>
 
-                                    <p>베이컨, 새콤한 마늘 장아찌, 톡톡 씹히는 날치알과 렌치 소스가 함께 어우러진 매드포갈릭 볶음밥</p>
+                                        <p>베이컨, 새콤한 마늘 장아찌, 톡톡 씹히는 날치알과 렌치 소스가 함께 어우러진 매드포갈릭 볶음밥</p>
+                                    </div> <!-- menu_text end -->
 
                                     <ul>
                                         <li>※ 특정 원재료에 알레르기가 있으신 경우 매장에 사전 문의 부탁드립니다.</li>
@@ -1402,17 +1649,25 @@
                                 </div> <!-- menu_img end -->
 
                                 <div class="menu_info">
-                                    <h3>RICE</h3>
-                                    <span>볶음밥</span>
+                                    <div class="menu_tag">
+                                        <h3>RICE</h3>
+                                        <span>볶음밥</span>
+                                    </div> <!-- menu_tag end -->
 
-                                    <figure class="hot">
-                                        <img src="img/cont01/hot.png" alt="">
-                                    </figure> <!-- hot end -->
+                                    <div class="menu_text">
+                                        <figure class="hot">
+                                            <img src="img/cont01/hot.png" alt="">
+                                        </figure> <!-- hot end -->
 
-                                    <h4>Dancing Salsa Rice with Beef</h4>
-                                    <strong>￦28,500</strong>
+                                        <h4>Dancing Salsa Rice with Beef
+                                            <span class="m_hot">
+                                                <img src="img/cont01/hot.png" alt="">
+                                            </span>
+                                        </h4>
+                                        <strong>￦28,500</strong>
 
-                                    <p>부드러운 쇠고기와 아삭한 숙주를 에그 후라이, 살사와 함께 즐기는 철판 볶음밥</p>
+                                        <p>부드러운 쇠고기와 아삭한 숙주를 에그 후라이, 살사와 함께 즐기는 철판 볶음밥</p>
+                                    </div> <!-- menu_text end -->
 
                                     <ul>
                                         <li>※ 특정 원재료에 알레르기가 있으신 경우 매장에 사전 문의 부탁드립니다.</li>
@@ -1428,17 +1683,25 @@
                                 </div> <!-- menu_img end -->
 
                                 <div class="menu_info">
-                                    <h3>RISOTTO</h3>
-                                    <span>리조또</span>
+                                    <div class="menu_tag">
+                                        <h3>RISOTTO</h3>
+                                        <span>리조또</span>
+                                    </div> <!-- menu_tag end -->
 
-                                    <figure class="hot">
-                                        <img src="img/cont01/hot.png" alt="">
-                                    </figure> <!-- hot end -->
+                                    <div class="menu_text">
+                                        <figure class="hot">
+                                            <img src="img/cont01/hot.png" alt="">
+                                        </figure> <!-- hot end -->
 
-                                    <h4>Grilled Chicken & Mushroom Risotto</h4>
-                                    <strong>￦27,800</strong>
+                                        <h4>Grilled Chicken & Mushroom Risotto
+                                            <span class="m_hot">
+                                                <img src="img/cont01/hot.png" alt="">
+                                            </span>
+                                        </h4>
+                                        <strong>￦27,800</strong>
 
-                                    <p>각종 버섯과 시금치를 넣은 리조또 위에 부드러운 닭다리살을 얹은 리조또</p>
+                                        <p>각종 버섯과 시금치를 넣은 리조또 위에 부드러운 닭다리살을 얹은 리조또</p>
+                                    </div> <!-- menu_text end -->
 
                                     <ul>
                                         <li>※ 특정 원재료에 알레르기가 있으신 경우 매장에 사전 문의 부탁드립니다.</li>
@@ -1454,17 +1717,25 @@
                                 </div> <!-- menu_img end -->
 
                                 <div class="menu_info">
-                                    <h3>RISOTTO</h3>
-                                    <span>리조또</span>
+                                    <div class="menu_tag">
+                                        <h3>RISOTTO</h3>
+                                        <span>리조또</span>
+                                    </div> <!-- menu_tag end -->
 
-                                    <figure class="hot">
-                                        <img src="img/cont01/hot.png" alt="">
-                                    </figure> <!-- hot end -->
+                                    <div class="menu_text">
+                                        <figure class="hot">
+                                            <img src="img/cont01/hot.png" alt="">
+                                        </figure> <!-- hot end -->
 
-                                    <h4>Lemon Calamari Cream Risotto</h4>
-                                    <strong>￦26,900</strong>
+                                        <h4>Lemon Calamari Cream Risotto
+                                            <span class="m_hot">
+                                                <img src="img/cont01/hot.png" alt="">
+                                            </span>
+                                        </h4>
+                                        <strong>￦26,900</strong>
 
-                                    <p>지중해풍 레몬으로 조리한 깔라마리를 수제 마늘종 피클과 곁들여먹는 매콤하고 부드러운 크림 리조또</p>
+                                        <p>지중해풍 레몬으로 조리한 깔라마리를 수제 마늘종 피클과 곁들여먹는 매콤하고 부드러운 크림 리조또</p>
+                                    </div> <!-- menu_text end -->
 
                                     <ul>
                                         <li>※ 특정 원재료에 알레르기가 있으신 경우 매장에 사전 문의 부탁드립니다.</li>
@@ -1489,21 +1760,30 @@
                                 </div> <!-- menu_img end -->
 
                                 <div class="menu_info">
-                                    <h3>STEAK</h3>
-                                    <span>스테이크</span>
+                                    <div class="menu_tag">
+                                        <h3>STEAK</h3>
+                                        <span>스테이크</span>
+                                    </div> <!-- menu_tag end -->
 
-                                    <figure class="hot">
-                                        <img src="img/cont01/hot.png" alt="">
-                                    </figure> <!-- hot end -->
+                                    <div class="menu_text">
+                                        <figure class="hot">
+                                            <img src="img/cont01/hot.png" alt="">
+                                        </figure> <!-- hot end -->
 
-                                    <h4>Brussels sprouts & Tornado Striploin Steak</h4>
-                                    <strong>￦48,700 (200g)</strong>
+                                        <h4>Brussels sprouts & Tornado Striploin Steak
+                                            <span class="m_hot">
+                                                <img src="img/cont01/hot.png" alt="">
+                                            </span>
+                                        </h4>
+                                        <strong>￦48,700 (200g)</strong>
 
-                                    <p>매콤 달콤하게 조리된 미니 양배추와 얇게 슬라이스된 해슬백 포테이토, 육즙 가득 구워낸 스테이크를 포레스트 소스와 함께 즐기는 시그니처 스테이크
-                                    </p>
+                                        <p>매콤 달콤하게 조리된 미니 양배추와 얇게 슬라이스된 해슬백 포테이토, 육즙 가득 구워낸 스테이크를 포레스트 소스와 함께 즐기는
+                                            시그니처 스테이크
+                                        </p>
+                                    </div> <!-- menu_text end -->
 
                                     <ul>
-                                        <li>※ 15,000원 추가 시 300g으로 제공됩니다.</li>
+                                        <li class="caution">※ 15,000원 추가 시 300g으로 제공됩니다.</li>
                                         <li>※ 특정 원재료에 알레르기가 있으신 경우 매장에 사전 문의 부탁드립니다.</li>
                                     </ul>
                                 </div> <!-- menu_info end -->
@@ -1517,16 +1797,20 @@
                                 </div> <!-- menu_img end -->
 
                                 <div class="menu_info">
-                                    <h3>STEAK</h3>
-                                    <span>스테이크</span>
+                                    <div class="menu_tag">
+                                        <h3>STEAK</h3>
+                                        <span>스테이크</span>
+                                    </div> <!-- menu_tag end -->
 
-                                    <h4>Garlic Steak</h4>
-                                    <strong>￦50,600 (200g)</strong>
+                                    <div class="menu_text">
+                                        <h4>Garlic Steak</h4>
+                                        <strong>￦50,600 (200g)</strong>
 
-                                    <p>특별 레시피로 조리한 마늘이 듬뿍 올라간 매드포갈릭의 시그니처 등심 스테이크</p>
+                                        <p>특별 레시피로 조리한 마늘이 듬뿍 올라간 매드포갈릭의 시그니처 등심 스테이크</p>
+                                    </div> <!-- menu_text end -->
 
                                     <ul>
-                                        <li>※ 15,000원 추가 시 300g, 30,000원 추가 시 400g으로 제공됩니다.</li>
+                                        <li class="caution">※ 15,000원 추가 시 300g, 30,000원 추가 시 400g으로 제공됩니다.</li>
                                         <li>※ 특정 원재료에 알레르기가 있으신 경우 매장에 사전 문의 부탁드립니다.</li>
                                     </ul>
                                 </div> <!-- menu_info end -->
@@ -1540,16 +1824,20 @@
                                 </div> <!-- menu_img end -->
 
                                 <div class="menu_info">
-                                    <h3>STEAK</h3>
-                                    <span>스테이크</span>
+                                    <div class="menu_tag">
+                                        <h3>STEAK</h3>
+                                        <span>스테이크</span>
+                                    </div> <!-- menu_tag end -->
 
-                                    <h4>Herb Ribeye Steak</h4>
-                                    <strong>￦50,600 (200g)</strong>
+                                    <div class="menu_text">
+                                        <h4>Herb Ribeye Steak</h4>
+                                        <strong>￦50,600 (200g)</strong>
 
-                                    <p>로즈마리, 타임, 월계수향을 가미하여 그릴에 굽고 허브 버터를 함께 곁들여먹는 립아이 스테이크</p>
+                                        <p>로즈마리, 타임, 월계수향을 가미하여 그릴에 굽고 허브 버터를 함께 곁들여먹는 립아이 스테이크</p>
+                                    </div> <!-- menu_text end -->
 
                                     <ul>
-                                        <li>※ 15,000원 추가 시 300g, 30,000원 추가 시 400g으로 제공됩니다.</li>
+                                        <li class="caution">※ 15,000원 추가 시 300g, 30,000원 추가 시 400g으로 제공됩니다.</li>
                                         <li>※ 특정 원재료에 알레르기가 있으신 경우 매장에 사전 문의 부탁드립니다.</li>
                                     </ul>
                                 </div> <!-- menu_info end -->
@@ -1563,17 +1851,25 @@
                                 </div> <!-- menu_img end -->
 
                                 <div class="menu_info">
-                                    <h3>STEAK</h3>
-                                    <span>스테이크</span>
+                                    <div class="menu_tag">
+                                        <h3>STEAK</h3>
+                                        <span>스테이크</span>
+                                    </div> <!-- menu_tag end -->
 
-                                    <figure class="hot">
-                                        <img src="img/cont01/hot.png" alt="">
-                                    </figure> <!-- hot end -->
+                                    <div class="menu_text">
+                                        <figure class="hot">
+                                            <img src="img/cont01/hot.png" alt="">
+                                        </figure> <!-- hot end -->
 
-                                    <h4>Garlic Hug Steak</h4>
-                                    <strong>￦53,000 (150g)</strong>
+                                        <h4>Garlic Hug Steak
+                                            <span class="m_hot">
+                                                <img src="img/cont01/hot.png" alt="">
+                                            </span>
+                                        </h4>
+                                        <strong>￦53,000 (150g)</strong>
 
-                                    <p>마늘을 감싸 안은 듯 마늘로 속을 채운 후, 매운 향의 치즈 크림 소스와 함께 즐기는 부드러운 안심 스테이크</p>
+                                        <p>마늘을 감싸 안은 듯 마늘로 속을 채운 후, 매운 향의 치즈 크림 소스와 함께 즐기는 부드러운 안심 스테이크</p>
+                                    </div> <!-- menu_text end -->
 
                                     <ul>
                                         <li>※ 특정 원재료에 알레르기가 있으신 경우 매장에 사전 문의 부탁드립니다.</li>
@@ -1620,13 +1916,17 @@
                                 </div> <!-- menu_img end -->
 
                                 <div class="menu_info">
-                                    <h3>DESSERT</h3>
-                                    <span>디저트</span>
+                                    <div class="menu_tag">
+                                        <h3>DESSERT</h3>
+                                        <span>디저트</span>
+                                    </div> <!-- menu_tag end -->
 
-                                    <h4>Villna Ice cream</h4>
-                                    <strong>￦5,800 (1 Scoop)</strong>
+                                    <div class="menu_text">
+                                        <h4>Villna Ice cream</h4>
+                                        <strong>￦5,800 (1 Scoop)</strong>
 
-                                    <p>부드럽고 달콤한 바닐라 아이스크림 (1스쿱)</p>
+                                        <p>부드럽고 달콤한 바닐라 아이스크림 (1스쿱)</p>
+                                    </div> <!-- menu_text end -->
                                 </div> <!-- menu_info end -->
                             </div> <!-- menu end -->
 
@@ -1638,13 +1938,17 @@
                                 </div> <!-- menu_img end -->
 
                                 <div class="menu_info">
-                                    <h3>DESSERT</h3>
-                                    <span>디저트</span>
+                                    <div class="menu_tag">
+                                        <h3>DESSERT</h3>
+                                        <span>디저트</span>
+                                    </div> <!-- menu_tag end -->
 
-                                    <h4>Affogato</h4>
-                                    <strong>￦7,800</strong>
+                                    <div class="menu_text">
+                                        <h4>Affogato</h4>
+                                        <strong>￦7,800</strong>
 
-                                    <p>진한 에스프레소를 바닐라 아이스크림 얹어서 진한 커피향과 달콤함을 함께 즐기는 커피 디저트</p>
+                                        <p>진한 에스프레소를 바닐라 아이스크림 얹어서 진한 커피향과 달콤함을 함께 즐기는 커피 디저트</p>
+                                    </div> <!-- menu_text end -->
                                 </div> <!-- menu_info end -->
                             </div> <!-- menu end -->
 
@@ -1656,13 +1960,17 @@
                                 </div> <!-- menu_img end -->
 
                                 <div class="menu_info">
-                                    <h3>DESSERT</h3>
-                                    <span>디저트</span>
+                                    <div class="menu_tag">
+                                        <h3>DESSERT</h3>
+                                        <span>디저트</span>
+                                    </div> <!-- menu_tag end -->
 
-                                    <h4>Banana Crepe Pouch</h4>
-                                    <strong>￦9,800</strong>
+                                    <div class="menu_text">
+                                        <h4>Banana Crepe Pouch</h4>
+                                        <strong>￦9,800</strong>
 
-                                    <p>부드럽고 달콤한 크레이프에 시나몬 버터로 볶아낸 바나나와 아이스크림을 건자두와 함께 즐기는 바나나 크레이프 파우치</p>
+                                        <p>부드럽고 달콤한 크레이프에 시나몬 버터로 볶아낸 바나나와 아이스크림을 건자두와 함께 즐기는 바나나 크레이프 파우치</p>
+                                    </div> <!-- menu_text end -->
                                 </div> <!-- menu_info end -->
                             </div> <!-- menu end -->
 
@@ -1674,18 +1982,22 @@
                                 </div> <!-- menu_img end -->
 
                                 <div class="menu_info">
-                                    <h3>DESSERT</h3>
-                                    <span>디저트</span>
+                                    <div class="menu_tag">
+                                        <h3>DESSERT</h3>
+                                        <span>디저트</span>
+                                    </div> <!-- menu_tag end -->
 
-                                    <h4>Burrata Cheese with Basil Tomato</h4>
-                                    <strong>￦12,500</strong>
+                                    <div class="menu_text">
+                                        <h4>Burrata Cheese with Basil Tomato</h4>
+                                        <strong>￦12,500</strong>
 
-                                    <p>부드러운 부라타 치즈와 상큼한 토마토, 향긋한 바질 오일과 발사믹 크림이 조화로운 디저트</p>
+                                        <p>부드러운 부라타 치즈와 상큼한 토마토, 향긋한 바질 오일과 발사믹 크림이 조화로운 디저트</p>
+                                    </div> <!-- menu_text end -->
 
                                     <ul>
-                                        <li>※ 본 메뉴는 와인 페어링 푸드로 와인 드시는 고객이 즐길 수 있도록 20% 할인된 10,000원에 이용 가능합니다. (무상 와인 주문
-                                            시
-                                            제외)</li>
+                                        <li>※ 본 메뉴는 와인 페어링 푸드로 와인 드시는 고객이 즐길 수 있도록 20% 할인된 10,000원에 이용 가능합니다.
+                                            (무상 와인 주문
+                                            시 제외)</li>
                                     </ul>
                                 </div> <!-- menu_info end -->
                             </div> <!-- menu end -->
@@ -1698,13 +2010,17 @@
                                 </div> <!-- menu_img end -->
 
                                 <div class="menu_info">
-                                    <h3>DESSERT</h3>
-                                    <span>디저트</span>
+                                    <div class="menu_tag">
+                                        <h3>DESSERT</h3>
+                                        <span>디저트</span>
+                                    </div> <!-- menu_tag end -->
 
-                                    <h4>Mille Crepe</h4>
-                                    <strong>￦9,800</strong>
+                                    <div class="menu_text">
+                                        <h4>Mille Crepe</h4>
+                                        <strong>￦9,800</strong>
 
-                                    <p>부드러운 생크림과 겹겹이 쌓은 달콤한 크레이프를 라즈베리와 함께 즐기는 밀 크레이프</p>
+                                        <p>부드러운 생크림과 겹겹이 쌓은 달콤한 크레이프를 라즈베리와 함께 즐기는 밀 크레이프</p>
+                                    </div> <!-- menu_text end -->
                                 </div> <!-- menu_info end -->
                             </div> <!-- menu end -->
                         </div>
@@ -1725,13 +2041,17 @@
                                 </div> <!-- menu_img end -->
 
                                 <div class="menu_info">
-                                    <h3>BEVERAGE</h3>
-                                    <span>음료</span>
+                                    <div class="menu_tag">
+                                        <h3>BEVERAGE</h3>
+                                        <span>음료</span>
+                                    </div> <!-- menu_tag end -->
 
-                                    <h4>Orange Ade</h4>
-                                    <strong>￦6,500</strong>
+                                    <div class="menu_text">
+                                        <h4>Orange Ade</h4>
+                                        <strong>￦6,500</strong>
 
-                                    <p>과즙이 가득한 오렌지를 갈아 넣어 더욱 신선한 오렌지 에이드</p>
+                                        <p>과즙이 가득한 오렌지를 갈아 넣어 더욱 신선한 오렌지 에이드</p>
+                                    </div> <!-- menu_text end -->
                                 </div> <!-- menu_info end -->
                             </div> <!-- menu end -->
 
@@ -1743,13 +2063,17 @@
                                 </div> <!-- menu_img end -->
 
                                 <div class="menu_info">
-                                    <h3>BEVERAGE</h3>
-                                    <span>음료</span>
+                                    <div class="menu_tag">
+                                        <h3>BEVERAGE</h3>
+                                        <span>음료</span>
+                                    </div> <!-- menu_tag end -->
 
-                                    <h4>Lemon Ade</h4>
-                                    <strong>￦6,500</strong>
+                                    <div class="menu_text">
+                                        <h4>Lemon Ade</h4>
+                                        <strong>￦6,500</strong>
 
-                                    <p>과즙이 가득한 레몬을 갈아 넣어 더욱 신선한 레몬 에이드</p>
+                                        <p>과즙이 가득한 레몬을 갈아 넣어 더욱 신선한 레몬 에이드</p>
+                                    </div> <!-- menu_text end -->
                                 </div> <!-- menu_info end -->
                             </div> <!-- menu end -->
 
@@ -1761,13 +2085,17 @@
                                 </div> <!-- menu_img end -->
 
                                 <div class="menu_info">
-                                    <h3>BEVERAGE</h3>
-                                    <span>음료</span>
+                                    <div class="menu_tag">
+                                        <h3>BEVERAGE</h3>
+                                        <span>음료</span>
+                                    </div> <!-- menu_tag end -->
 
-                                    <h4>Grapefruit Ade</h4>
-                                    <strong>￦6,500</strong>
+                                    <div class="menu_text">
+                                        <h4>Grapefruit Ade</h4>
+                                        <strong>￦6,500</strong>
 
-                                    <p>과즙이 가득한 자몽을 갈아 넣어 더욱 신선한 자몽 에이드</p>
+                                        <p>과즙이 가득한 자몽을 갈아 넣어 더욱 신선한 자몽 에이드</p>
+                                    </div> <!-- menu_text end -->
                                 </div> <!-- menu_info end -->
                             </div> <!-- menu end -->
 
@@ -1779,13 +2107,17 @@
                                 </div> <!-- menu_img end -->
 
                                 <div class="menu_info">
-                                    <h3>BEVERAGE</h3>
-                                    <span>음료</span>
+                                    <div class="menu_tag">
+                                        <h3>BEVERAGE</h3>
+                                        <span>음료</span>
+                                    </div> <!-- menu_tag end -->
 
-                                    <h4>Red Berry Wine Cooler</h4>
-                                    <strong>￦7,500</strong>
+                                    <div class="menu_text">
+                                        <h4>Red Berry Wine Cooler</h4>
+                                        <strong>￦7,500</strong>
 
-                                    <p>지중해 와인과 라즈베리, 블루베리, 레몬, 로즈마리 등이 어우러진 프리미엄 레드 와인 쿨러</p>
+                                        <p>지중해 와인과 라즈베리, 블루베리, 레몬, 로즈마리 등이 어우러진 프리미엄 레드 와인 쿨러</p>
+                                    </div> <!-- menu_text end -->
                                 </div> <!-- menu_info end -->
                             </div> <!-- menu end -->
 
@@ -1797,13 +2129,17 @@
                                 </div> <!-- menu_img end -->
 
                                 <div class="menu_info">
-                                    <h3>BEVERAGE</h3>
-                                    <span>음료</span>
+                                    <div class="menu_tag">
+                                        <h3>BEVERAGE</h3>
+                                        <span>음료</span>
+                                    </div> <!-- menu_tag end -->
 
-                                    <h4>White Berry Wine Cooler</h4>
-                                    <strong>￦7,500</strong>
+                                    <div class="menu_text">
+                                        <h4>White Berry Wine Cooler</h4>
+                                        <strong>￦7,500</strong>
 
-                                    <p>지중해 와인과 라즈베리, 블루베리, 레몬, 로즈마리 등이 어우러진 프리미엄 화이트 와인 쿨러</p>
+                                        <p>지중해 와인과 라즈베리, 블루베리, 레몬, 로즈마리 등이 어우러진 프리미엄 화이트 와인 쿨러</p>
+                                    </div> <!-- menu_text end -->
                                 </div> <!-- menu_info end -->
                             </div> <!-- menu end -->
 
@@ -1815,13 +2151,17 @@
                                 </div> <!-- menu_img end -->
 
                                 <div class="menu_info">
-                                    <h3>BEVERAGE</h3>
-                                    <span>음료</span>
+                                    <div class="menu_tag">
+                                        <h3>BEVERAGE</h3>
+                                        <span>음료</span>
+                                    </div> <!-- menu_tag end -->
 
-                                    <h4>CIDER</h4>
-                                    <strong>￦4,500</strong>
+                                    <div class="menu_text">
+                                        <h4>CIDER</h4>
+                                        <strong>￦4,500</strong>
 
-                                    <p>칠성사이다</p>
+                                        <p>칠성사이다</p>
+                                    </div> <!-- menu_text end -->
                                 </div> <!-- menu_info end -->
                             </div> <!-- menu end -->
 
@@ -1833,13 +2173,17 @@
                                 </div> <!-- menu_img end -->
 
                                 <div class="menu_info">
-                                    <h3>BEVERAGE</h3>
-                                    <span>음료</span>
+                                    <div class="menu_tag">
+                                        <h3>BEVERAGE</h3>
+                                        <span>음료</span>
+                                    </div> <!-- menu_tag end -->
 
-                                    <h4>PEPSI</h4>
-                                    <strong>￦4,500</strong>
+                                    <div class="menu_text">
+                                        <h4>PEPSI</h4>
+                                        <strong>￦4,500</strong>
 
-                                    <p>펩시콜라</p>
+                                        <p>펩시콜라</p>
+                                    </div> <!-- menu_text end -->
                                 </div> <!-- menu_info end -->
                             </div> <!-- menu end -->
                         </div>
@@ -2019,6 +2363,10 @@
                                 </a>
                             </div> <!-- item -->
                         </div> <!-- list end -->
+
+                        <a href="#">
+                            더 알아보기
+                        </a>
                     </div> <!-- menbership end -->
 
                     <div class="search bottom">
@@ -2063,27 +2411,31 @@
 
             <div class="inner">
                 <div class="info">
-                    <ul>
-                        <li><a href="#">개인정보처리방침</a></li>
-                        <li><a href="#">이용약관</a></li>
-                    </ul>
+                    <div class="f_text">
+                        <ul>
+                            <li><a href="#">개인정보처리방침</a></li>
+                            <li><a href="#">이용약관</a></li>
+                        </ul>
 
-                    <p>서울시 중구 동호로 15길 31, 종하빌딩 B동</p>
+                        <p>서울시 중구 동호로 15길 31, 종하빌딩 B동</p>
+                    </div> <!-- f_text end -->
 
-                    <div class="sns">
-                        <a href="#"><img src="img/footer/insta_icon.png" alt="인스타"></a>
-                        <a href="#"><img src="img/footer/facebook_icon.png" alt="페북"></a>
-                        <a href="#"><img src="img/footer/youtube_icon.png" alt="유튜브"></a>
-                    </div> <!-- sns end -->
+                    <div class="f_icon">
+                        <div class="sns">
+                            <a href="#"><img src="img/footer/insta_icon.png" alt="인스타"></a>
+                            <a href="#"><img src="img/footer/facebook_icon.png" alt="페북"></a>
+                            <a href="#"><img src="img/footer/youtube_icon.png" alt="유튜브"></a>
+                        </div> <!-- sns end -->
 
-                    <div class="app">
-                        <a href="#">
-                            <img src="img/footer/apple.png" alt="">
-                        </a>
-                        <a href="#">
-                            <img src="img/footer/google.png" alt="">
-                        </a>
-                    </div> <!-- app end -->
+                        <div class="app">
+                            <a href="#">
+                                <img src="img/footer/apple.png" alt="">
+                            </a>
+                            <a href="#">
+                                <img src="img/footer/google.png" alt="">
+                            </a>
+                        </div> <!-- app end -->
+                    </div> <!-- f-icon end -->
 
                     <span>COPYRIGHT ⓒ OSH</span>
                 </div> <!-- info end -->
@@ -2133,6 +2485,13 @@
                                 <li><a href="#">맴버십 가입</a></li>
                             </ul> <!-- f_depth02 end -->
                         </li> <!-- f_depth01 end -->
+
+                        <div class="btn_case">
+                            <div class="more_btn">
+                                <span></span>
+                                <span></span>
+                            </div> <!-- more_btn end -->
+                        </div> <!-- btn_case end -->
                     </ul> <!-- f_gnb end -->
                 </nav>
             </div> <!-- inner end -->
