@@ -386,12 +386,6 @@ header .pc_join li a:hover:after {
     height: 100%;
 }
 
-.cont01 .menu_list .wine figure img {
-    width: 100%;
-    /* height: auto;
-    margin-top: -160px; */
-}
-
 .cont01 .menu_list .wine h2 {
     position: absolute;
     top: 40%;
@@ -1028,8 +1022,10 @@ footer nav .f_gnb .f_depth01 .f_depth02 {
 
 
 
+
 /* -------------------------------------------------------------------- */
 /* mobile 1275px */
+/* -------------------------------------------------------------------- */
 
 @media screen and (max-width:1275px) {
     h2 {
@@ -1053,14 +1049,14 @@ footer nav .f_gnb .f_depth01 .f_depth02 {
         transition: 0.3s;
     }
 
-    .cont01 .inner .tag::-webkit-scrollbar-thumb {
+    /* .cont01 .inner .tag::-webkit-scrollbar-thumb {
         background-color: white;
         border-radius: 5px;
-    }
+    } */
 
-    .cont01 .inner .tag:hover::-webkit-scrollbar-thumb {
+    /* .cont01 .inner .tag:hover::-webkit-scrollbar-thumb {
         background-color: black;
-    }
+    } */
 
     .cont01 .tag li {
         margin-right: 20px;
@@ -1077,11 +1073,14 @@ footer nav .f_gnb .f_depth01 .f_depth02 {
     .cont01 .menu_list .wine a {
         padding: 5px 10px;
         font-size: 14px;
+        background-color: black;
+        border-color: white;
+        color: white;
     }
 
     .cont01 .menu_list .wine.mad a {
-        left: 70px;
-        top: 85%;
+        left: 50px;
+        top: 80%;
     }
 
     .cont01 .menu_list .wine figure img {
@@ -1165,8 +1164,12 @@ footer nav .f_gnb .f_depth01 .f_depth02 {
 
 
 
+
+
+
 /* -------------------------------------------------------------------- */
 /* mobile 960px */
+/* -------------------------------------------------------------------- */
 
 @media screen and (max-width:960px) {
     h2 {
@@ -1272,16 +1275,10 @@ footer nav .f_gnb .f_depth01 .f_depth02 {
         height: calc(100vh - 50px);
         margin-top: 50px;
         position: fixed;
-        right: -100%;
+        right: 0;
         top: 0;
         background-color: #231f20;
         padding: 10px 0;
-        transition: all 0.2s ease-in-out;
-        transition-duration: 0.3s;
-    }
-
-    header .mobile_gnb .gnb .depth01.on .depth02 {
-        right: 0;
     }
 
     header .mobile_gnb .gnb .depth01 .depth02 a {
@@ -1507,14 +1504,19 @@ footer nav .f_gnb .f_depth01 .f_depth02 {
         font-size: 10px;
     }
 
-    footer nav .f_gnb .f_depth01 .f_depth02 li {
-        height: 20px;
+    footer nav .f_gnb .f_depth01 .f_depth02 li a {
+        display: block;
+        line-height: 2.5;
     }
 }
 
 
+
+
+
 /* -------------------------------------------------------------------- */
 /* mobile 850px */
+/* -------------------------------------------------------------------- */
 
 @media screen and (max-width:850px) {
     .cont01 .menu_list .menu {
@@ -1681,6 +1683,7 @@ footer nav .f_gnb .f_depth01 .f_depth02 {
     footer nav .f_gnb {
         /* height: 210px; */
         justify-content: flex-start;
+        /* gap: 10px; */
         gap: 0;
     }
 
@@ -1733,8 +1736,8 @@ footer nav .f_gnb .f_depth01 .f_depth02 {
     }
 
     footer nav .f_gnb .f_depth01 {
-        width: 110px;
         text-align: left;
+        width: 90px;
     }
 
     footer nav .f_gnb .f_depth01 .f_depth02 {
@@ -1745,13 +1748,17 @@ footer nav .f_gnb .f_depth01 .f_depth02 {
 
 
 
+
+
 /* -------------------------------------------------------------------- */
 /* mobile 540px */
+/* -------------------------------------------------------------------- */
 
 @media screen and (max-width:540px) {
+
     /* cont01 */
     .cont01 .menu_list .menu {
-        height: 350px;  
+        height: 350px;
     }
 
     .cont01 .menu_list .menu .menu_info {
@@ -1759,7 +1766,7 @@ footer nav .f_gnb .f_depth01 .f_depth02 {
         border-radius: 0 0 25px 25px;
         padding: 10px 20px;
     }
-    
+
     .cont01 .menu_list .menu .menu_info h3 {
         font-size: 24px;
     }
@@ -1775,16 +1782,25 @@ footer nav .f_gnb .f_depth01 .f_depth02 {
     .cont01 .menu_list .menu .menu_info strong {
         font-size: 14px;
     }
-    
+
     .cont01 .menu_list .menu .menu_info p {
         display: none;
+    }
+
+    .cont01 .menu_list .wine h2 {
+        font-size: 25px;
+    }
+
+    .cont01 .menu_list .wine a {
+        font-size: 10px;
+        border: 1px solid white;
     }
 
     /* -------------------------------------------------------------------- */
     /* cont02 */
 
     .autoplay-progress {
-        bottom: 0%;
+        bottom: 0.1%;
     }
 
     .control {
@@ -1828,8 +1844,11 @@ footer nav .f_gnb .f_depth01 .f_depth02 {
 
 
 
+
+
 /* -------------------------------------------------------------------- */
 /* mobile 414px */
+/* -------------------------------------------------------------------- */
 
 @media screen and (max-width:414px) {
 
@@ -1895,6 +1914,12 @@ footer nav .f_gnb .f_depth01 .f_depth02 {
     /* -------------------------------------------------------------------- */
     /* cont01 */
 
+    .cont01 .tag li {
+        font-size: 12px;
+        padding: 3px 10px;
+        margin-right: 10px;
+    }
+
     .cont01 .menu_list .menu {
         height: 280px;
     }
@@ -1906,6 +1931,7 @@ footer nav .f_gnb .f_depth01 .f_depth02 {
 
     .cont01 .menu_list .menu .menu_info {
         height: 30%;
+        padding: 15px 20px;
     }
 
     .cont01 .menu_list .menu .menu_info h3 {
@@ -1927,10 +1953,29 @@ footer nav .f_gnb .f_depth01 .f_depth02 {
 
     .cont01 .menu_list .menu .menu_info strong {
         font-size: 10px;
+        margin-bottom: 0;
     }
 
     .cont01 .menu_list .menu .menu_info ul {
         display: none;
+    }
+
+    .cont01 .menu_list .wine h2,
+    .cont01 .menu_list .wine a {
+        left: 30px;
+    }
+
+    /* -------------------------------------------------------------------- */
+    /* cont02 */
+
+    .autoplay-progress svg {
+        width: 20px;
+        height: 20px;
+    }
+
+    .control div {
+        width: 15px;
+        height: 15px;
     }
 
     /* -------------------------------------------------------------------- */
@@ -2004,5 +2049,51 @@ footer nav .f_gnb .f_depth01 .f_depth02 {
     footer .info span,
     footer nav .f_gnb .f_depth01 {
         font-size: 10px;
+    }
+
+    footer nav .f_gnb .f_depth01 .f_depth02 li a {
+        font-size: 10px;
+        zoom: 0.8;
+    }
+}
+
+
+
+
+
+
+
+
+/* -------------------------------------------------------------------- */
+/* mobile 320px */
+/* -------------------------------------------------------------------- */
+
+@media screen and (max-width:320px) {
+    h2 {
+        font-size: 20px;
+        margin-bottom: 20px;
+    }
+
+    .cont01 .tag li {
+        font-size: 10px;
+        padding: 2px 8px;
+        margin-right: 8px;
+    }
+
+    .cont01 .menu_list .menu .menu_info h3 {
+        font-size: 14px;
+    }
+
+    .cont01 .menu_list .menu .menu_info h4 {
+        font-size: 12px;
+    }
+
+    .autoplay-progress {
+        bottom: -0.2%;
+    }
+
+    footer nav .f_gnb .f_depth01 .f_depth02 li a {
+        line-height: 1.5;
+        padding: 5px 0;
     }
 }
