@@ -91,6 +91,7 @@
                 'right': -$(window).width()
             })
 
+            // 화면 크기 감지하여 
             $(window).resize(function () {
                 if (mobileNav.css('right') != '0px') {
                     mobileNav.css({
@@ -103,6 +104,7 @@
                 }
             });
 
+            // 화면 크기 감지하여 모바일 메뉴창 사라지게 만들기
             $(window).resize(function () {
                 if ($(window).width() > 960) {
                     mobileBg.removeClass('on');
@@ -124,6 +126,7 @@
                 }
             })
 
+            // 모바일 메뉴버튼 클릭시 펼쳐짐
             mobileBtn.click(function () {
                 mobileBg.addClass('on');
                 closeBtn.animate({
@@ -206,18 +209,9 @@
                 'right': -$(window).width()
             })
 
-            if ($(window).height() < 230) {
-                mDepth02.css({
-                    'height': '100%'
-                })
-            } else {
-                mDepth02.css({
-                    'height': '100vh'
-                })
-            }
-
-            $(window).resize(function () {
-                if ($(window).height() < 230) {
+            // 창 크기에 따른 2차메뉴 높이
+            if ($(window).width() > 414) {
+                if ($(window).height() <= 460) {
                     mDepth02.css({
                         'height': '100%'
                     })
@@ -225,6 +219,47 @@
                     mDepth02.css({
                         'height': '100vh'
                     })
+                }
+            } else {
+                if ($(window).height() <= 250) {
+                    mDepth02.css({
+                        'height': '100%'
+                    })
+                } else {
+                    mDepth02.css({
+                        'height': '100vh'
+                    })
+                }
+            }
+
+            // 창 사이즈 변경에 맞춘 2차메뉴 높이 변경
+            $(window).resize(function () {
+                if (window.orientation == 0) { // 화면 세로
+                    mDepth02.css({
+                        'height': '100vh'
+                    })
+                } else {                       // 화면 가로
+                    if ($(window).width() > 414) {
+                        if ($(window).height() <= 460) {
+                            mDepth02.css({
+                                'height': '100%'
+                            })
+                        } else {
+                            mDepth02.css({
+                                'height': '100vh'
+                            })
+                        }
+                    } else {
+                        if ($(window).height() <= 250) {
+                            mDepth02.css({
+                                'height': '100%'
+                            })
+                        } else {
+                            mDepth02.css({
+                                'height': '100vh'
+                            })
+                        }
+                    }
                 }
             })
 

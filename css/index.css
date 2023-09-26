@@ -1216,7 +1216,8 @@ footer nav .f_gnb .f_depth01 .f_depth02 {
         top: 0;
         background-color: white;
         z-index: 100;
-        overflow: scroll;
+        overflow-y: scroll;
+        overflow-x: hidden;
     }
 
     header .mobile_gnb .mobile_join {
@@ -1305,7 +1306,8 @@ footer nav .f_gnb .f_depth01 .f_depth02 {
         top: 0;
         background-color: #231f20;
         padding: 10px 0;
-        overflow: scroll;
+        overflow-y: scroll;
+        overflow-x: hidden;
     }
 
     header .mobile_gnb .gnb .depth01 .depth02 a {
