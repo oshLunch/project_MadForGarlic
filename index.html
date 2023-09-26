@@ -263,6 +263,7 @@
                 }
             })
 
+            // 2차메뉴 클릭시 이벤트
             mA.click(function () {
                 if ($(this).next().css('right') == '0px') {
                     mA.removeClass('on');
@@ -401,8 +402,10 @@
 
             $(window).scroll(function () {
                 if ($(window).width() <= '1275' && $(window).width() > '540') {
-                    if (cont02Top / 2 < $(window).scrollTop()) {
-                        sideBar.show();
+                    if (cont01Top / 2 < $(window).scrollTop()) {
+                        sideBar.css({
+                            'display' : 'flex'
+                        });
                     } else {
                         sideBar.hide();
                     }
@@ -412,7 +415,9 @@
 
                 } else {
                     if (cont01Top / 2 < $(window).scrollTop()) {
-                        sideBar.show();
+                        sideBar.css({
+                            'display' : 'flex'
+                        });
                     } else {
                         sideBar.hide();
                     }
@@ -470,8 +475,8 @@
 
 
             // footer에 가까워지면 사이드바 글자색 흰색으로 변경
-            $(window).scroll(function () {
-                if ($(window).scrollTop() > (cont03Top - $('.cont03').height())) {
+            /* $(window).scroll(function () {
+                if ($(window).scrollTop() > (cont01Top - $('.cont01').height())) {
                     sidebarP.css({
                         'color': 'white',
                         'text-shadow': 'none'
@@ -482,10 +487,10 @@
                         'text-shadow': 'none'
                     })
                 }
-            })
+            }) */
 
             // 화면 줄었을 때 사이드바 글씨 변경
-            $(window).scroll(function () {
+            /* $(window).scroll(function () {
                 if ($(window).width() <= '1275') {
                     if ($(window).scrollTop() > cont03Top / 2) {
                         sidebarP.css({
@@ -500,7 +505,7 @@
                     }
                 } else {
                 }
-            });
+            }); */
 
             // 창 넓이 850px 이하일 때 더보기 버튼
             let moreBtn = $('footer nav .f_gnb .btn_case .more_btn');
@@ -2463,7 +2468,7 @@
                 <div class="inner">
                     <div class="membership">
                         <div class="title">
-                            <h3>MEMBERSHIP</h3>
+                            <h3><a href="#">MEMBERSHIP</a></h3>
                             <p>모든 브랜드에서 적립하고 혜택 누리는 올인원 맴버십 M CLUB</p>
                         </div> <!-- title end -->
 
