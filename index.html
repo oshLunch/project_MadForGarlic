@@ -87,10 +87,54 @@
                 'right': -$(window).width()
             })
 
+            closeBtn.css({
+                'right': -$(window).width()
+            })
+
+            $(window).resize(function () {
+                if (mobileNav.css('right') != '0px') {
+                    mobileNav.css({
+                        'right': -$(window).width()
+                    })
+
+                    closeBtn.css({
+                        'right': -$(window).width()
+                    })
+                }
+            });
+
+            $(window).resize(function () {
+                if ($(window).width() > 960) {
+                    mobileBg.removeClass('on');
+                    mDepth01.removeClass('on');
+                    mA.removeClass('on');
+                    closeBtn.css({
+                        'right': -$(window).width()
+                    })
+                    mobileNav.css({
+                        'right': -$(window).width()
+                    })
+                    mDepth02.css({
+                        'right': -$(window).width()
+                    })
+                    $('body').css({
+                        'position': 'relative',
+                        'width': 'auto'
+                    })
+                }
+            })
+
             mobileBtn.click(function () {
                 mobileBg.addClass('on');
+                closeBtn.animate({
+                    'right': '80%'
+                })
                 mobileNav.animate({
                     'right': '0'
+                })
+                $('body').css({
+                    'position': 'fixed',
+                    'width': '100%'
                 })
             })
 
@@ -98,11 +142,19 @@
             closeBtn.click(function () {
                 mobileBg.removeClass('on');
                 mDepth01.removeClass('on');
+                mA.removeClass('on');
+                closeBtn.animate({
+                    'right': -$(window).width()
+                })
                 mobileNav.animate({
                     'right': -$(window).width()
                 })
                 mDepth02.css({
                     'right': -$(window).width()
+                })
+                $('body').css({
+                    'position': 'relative',
+                    'width': 'auto'
                 })
             })
 
@@ -110,11 +162,19 @@
             back.click(function () {
                 mobileBg.removeClass('on');
                 mDepth01.removeClass('on');
+                mA.removeClass('on');
+                closeBtn.animate({
+                    'right': -$(window).width()
+                })
                 mobileNav.animate({
                     'right': -$(window).width()
                 })
                 mDepth02.css({
                     'right': -$(window).width()
+                })
+                $('body').css({
+                    'position': 'relative',
+                    'width': 'auto'
                 })
             })
 
@@ -122,29 +182,64 @@
             mobileBg.click(function () {
                 mobileBg.removeClass('on');
                 mDepth01.removeClass('on');
+                mA.removeClass('on');
+                closeBtn.animate({
+                    'right': -$(window).width()
+                })
                 mobileNav.animate({
                     'right': -$(window).width()
                 })
                 mDepth02.css({
                     'right': -$(window).width()
                 })
+                $('body').css({
+                    'position': 'relative',
+                    'width': 'auto'
+                })
             })
 
             // 모바일 2차 메뉴
+            let mobileTop = $(mobileNav).scrollTop();
+            console.log(mobileTop); // mobileNav 위치값
+
             mDepth02.css({
                 'right': -$(window).width()
             })
 
-            mA.click(function () {
-                if ($(this).next().css('right') == '0px') {
-                    $(this).next().animate({
-                        'right': -$(window).width()
+            if ($(window).height() < 230) {
+                mDepth02.css({
+                    'height': '100%'
+                })
+            } else {
+                mDepth02.css({
+                    'height': '100vh'
+                })
+            }
+
+            $(window).resize(function () {
+                if ($(window).height() < 230) {
+                    mDepth02.css({
+                        'height': '100%'
                     })
                 } else {
                     mDepth02.css({
-                        'right': -$(window).width()
+                        'height': '100vh'
                     })
+                }
+            })
 
+            mA.click(function () {
+                if ($(this).next().css('right') == '0px') {
+                    mA.removeClass('on');
+                    $(this).next().animate({
+                        'right': -mobileNav.width()
+                    })
+                } else {
+                    mA.removeClass('on');
+                    $(this).addClass('on');
+                    mDepth02.css({
+                        'right': -mobileNav.width()
+                    })
                     $(this).next().animate({
                         'right': '0'
                     })
@@ -490,15 +585,14 @@
                     <ul class="gnb">
                         <li class="depth01 back">
                             <a href="#">
-                                HOME
+                                <span>HOME</span>
                                 <img src="img/header/next.png" alt="">
                             </a>
                         </li>
 
-
                         <li class="depth01">
                             <a href="#">
-                                브랜드
+                                <span>브랜드</span>
                                 <img src="img/header/next.png" alt="">
                             </a>
 
@@ -522,7 +616,7 @@
 
                         <li class="depth01">
                             <a href="#">
-                                메뉴
+                                <span>메뉴</span>
                                 <img src="img/header/next.png" alt="">
                             </a>
 
@@ -594,7 +688,7 @@
 
                         <li class="depth01">
                             <a href="#">
-                                맴버십
+                                <span>맴버십</span>
                                 <img src="img/header/next.png" alt="">
                             </a>
 
@@ -617,7 +711,7 @@
 
                         <li class="depth01">
                             <a href="#">
-                                이벤트
+                                <span>이벤트</span>
                                 <img src="img/header/next.png" alt="">
                             </a>
 
@@ -644,23 +738,23 @@
                                 </li>
                             </ul> <!-- depth02 end -->
                         </li> <!-- depth01 end -->
+
+                        <ul class="mobile_center back">
+                            <li class="depth01">
+                                <a href="#">
+                                    <span>공식스토어<img src="img/footer/side_bar/shop_icon_black.png" alt=""></span>
+                                    <img src="img/header/next.png" alt="">
+                                </a>
+                            </li> <!-- depth01 end -->
+
+                            <li class="depth01">
+                                <a href="#">
+                                    <span>예약</span>
+                                    <img src="img/header/next.png" alt="">
+                                </a>
+                            </li> <!-- depth01 end -->
+                        </ul> <!-- mobile_center end -->
                     </ul> <!-- gnb end -->
-
-                    <ul class="mobile_center back">
-                        <li class="depth01">
-                            <a href="#">
-                                <span>공식스토어<img src="img/footer/side_bar/shop_icon_black.png" alt=""></span>
-                                <img src="img/header/next.png" alt="">
-                            </a>
-                        </li> <!-- depth01 end -->
-
-                        <li class="depth01">
-                            <a href="#">
-                                예약
-                                <img src="img/header/next.png" alt="">
-                            </a>
-                        </li> <!-- depth01 end -->
-                    </ul>
                 </nav> <!-- mobile_gnb end -->
 
                 <div class="mobile_menu mobile">

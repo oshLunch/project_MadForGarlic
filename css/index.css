@@ -490,6 +490,7 @@ header .pc_join li a:hover:after {
 
 .cont02 .promotion {
     margin-bottom: 30px;
+    position: relative;
 }
 
 .cont02 .swiper {
@@ -527,6 +528,7 @@ header .pc_join li a:hover:after {
     left: 0;
     width: 90px;
     height: 90px;
+    margin-top: 0;
     /* background-color: rgba(0, 0, 0, 0.6);
     border-radius: 0 20px 20px 0; */
 }
@@ -536,6 +538,7 @@ header .pc_join li a:hover:after {
     right: 0;
     width: 90px;
     height: 90px;
+    margin-top: 0;
     /* background-color: rgba(0, 0, 0, 0.6);
     border-radius: 20px 0 0 20px; */
 }
@@ -850,14 +853,14 @@ header .pc_join li a:hover:after {
     margin-bottom: 5px;
 }
 
-.side_bar>.frame:hover {
+.side_bar .frame:hover {
     background-color: rgba(255, 255, 255, 0.6);
     border: 2px solid rgba(0, 0, 0, 0.6);
     transition: background-color 0.5s;
 }
 
-.side_bar>.frame:hover strong,
-.side_bar>.frame:hover strong span {
+.side_bar .frame:hover strong,
+.side_bar .frame:hover strong span {
     color: black;
 }
 
@@ -866,7 +869,7 @@ header .pc_join li a:hover:after {
     height: 50px; */
     width: 2.6vw;
     height: 2.6vw;
-    margin-left: 3px;
+    margin-left: 1px;
     object-fit: cover;
 }
 
@@ -1133,8 +1136,10 @@ footer nav .f_gnb .f_depth01 .f_depth02 {
 
 
 
+
 /* -------------------------------------------------------------------- */
 /* mobile 1100px */
+/* -------------------------------------------------------------------- */
 
 @media screen and (max-width:1100px) {
 
@@ -1211,6 +1216,7 @@ footer nav .f_gnb .f_depth01 .f_depth02 {
         top: 0;
         background-color: white;
         z-index: 100;
+        overflow: scroll;
     }
 
     header .mobile_gnb .mobile_join {
@@ -1231,9 +1237,9 @@ footer nav .f_gnb .f_depth01 .f_depth02 {
         align-items: center;
         width: 20px;
         height: 20px;
-        position: absolute;
+        position: fixed;
         top: 0;
-        left: -20px;
+        right: 80%;
         border-right: 1px solid #e1e3e4;
         background-color: white;
     }
@@ -1250,10 +1256,10 @@ footer nav .f_gnb .f_depth01 .f_depth02 {
     }
 
     header .mobile_gnb .gnb {
-        width: calc(100% - 40px);
+        width: 100%;
         margin: 0 auto;
-        border-bottom: 1px solid #e1e3e4;
         padding: 10px 0;
+        position: relative;
     }
 
     header .mobile_gnb .gnb .depth01>a {
@@ -1261,7 +1267,28 @@ footer nav .f_gnb .f_depth01 .f_depth02 {
         justify-content: space-between;
         align-items: center;
         padding: 20px 30px;
+    }
+
+    header .mobile_gnb .gnb .depth01>a span {
         color: black;
+        position: relative;
+    }
+
+    header .mobile_gnb .gnb .depth01>a span::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: -5px;
+        width: 0;
+        height: 2px;
+        background-color: black;
+        z-index: -1;
+        transition: all 0.2s ease-in-out;
+        transition-duration: 0.3s;
+    }
+
+    header .mobile_gnb .gnb .depth01>a.on span::before {
+        width: 100%;
     }
 
     header .mobile_gnb .gnb .depth01>a img {
@@ -1271,14 +1298,14 @@ footer nav .f_gnb .f_depth01 .f_depth02 {
 
     header .mobile_gnb .gnb .depth01 .depth02 {
         display: block;
-        width: calc(80% / 2);
-        height: calc(100vh - 50px);
-        margin-top: 50px;
-        position: fixed;
+        width: calc(100% / 2);
+        height: 100%;
+        position: absolute;
         right: 0;
         top: 0;
         background-color: #231f20;
         padding: 10px 0;
+        overflow: scroll;
     }
 
     header .mobile_gnb .gnb .depth01 .depth02 a {
@@ -1296,9 +1323,7 @@ footer nav .f_gnb .f_depth01 .f_depth02 {
     }
 
     header .mobile_gnb .mobile_center {
-        width: calc(100% - 40px);
-        margin: 0 auto;
-        padding: 10px 0;
+        border-top: 1px solid #e1e3e4;
     }
 
     header .mobile_gnb .mobile_center .depth01 a {
@@ -1882,8 +1907,7 @@ footer nav .f_gnb .f_depth01 .f_depth02 {
     }
 
     header .mobile_gnb .gnb .depth01 .depth02 {
-        height: calc(100vh - 30px);
-        margin-top: 30px;
+        height: 100%
     }
 
     header .mobile_gnb .gnb .depth01>a,
