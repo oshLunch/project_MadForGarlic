@@ -405,7 +405,7 @@
                 if ($(window).width() <= '1275' && $(window).width() > '540') {
                     if (cont01Top / 2 < $(window).scrollTop()) {
                         sideBar.css({
-                            'display' : 'flex'
+                            'display': 'flex'
                         });
                     } else {
                         sideBar.hide();
@@ -417,7 +417,7 @@
                 } else {
                     if (cont01Top / 2 < $(window).scrollTop()) {
                         sideBar.css({
-                            'display' : 'flex'
+                            'display': 'flex'
                         });
                     } else {
                         sideBar.hide();
@@ -618,9 +618,11 @@
                             </a>
                         </li>
 
-                        <figure>
-                            <img src="img/header/close.png" alt="">
-                        </figure>
+                        <li>
+                            <figure>
+                                <img src="img/header/close.png" alt="">
+                            </figure>
+                        </li>
                     </ul> <!-- mobile_join end -->
 
                     <ul class="gnb">
@@ -780,21 +782,19 @@
                             </ul> <!-- depth02 end -->
                         </li> <!-- depth01 end -->
 
-                        <ul class="mobile_center back">
-                            <li class="depth01">
-                                <a href="#">
-                                    <span>공식스토어<img src="img/footer/side_bar/shop_icon_black.png" alt=""></span>
-                                    <img src="img/header/next.png" alt="">
-                                </a>
-                            </li> <!-- depth01 end -->
+                        <li class="depth01 mobile_center back">
+                            <a href="#">
+                                <span>공식스토어<img src="img/footer/side_bar/shop_icon_black.png" alt=""></span>
+                                <img src="img/header/next.png" alt="">
+                            </a>
+                        </li> <!-- mobile_center end -->
 
-                            <li class="depth01">
-                                <a href="#">
-                                    <span>예약</span>
-                                    <img src="img/header/next.png" alt="">
-                                </a>
-                            </li> <!-- depth01 end -->
-                        </ul> <!-- mobile_center end -->
+                        <li class="depth01 mobile_center back">
+                            <a href="#">
+                                <span>예약</span>
+                                <img src="img/header/next.png" alt="">
+                            </a>
+                        </li> <!-- mobile_center end -->
                     </ul> <!-- gnb end -->
                 </nav> <!-- mobile_gnb end -->
 
@@ -841,7 +841,7 @@
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                         allowfullscreen></iframe> -->
                     <video autoplay muted loop>
-                        <source src="img/main_visual/매드포갈릭 브랜드 소개영상.mp4" type="video/mp4" />
+                        <source src="img/main_visual/brand_video.mp4" type="video/mp4" />
                     </video>
                 </figure> <!-- youtube -->
             </section> <!-- main_visual end -->
@@ -2567,7 +2567,7 @@
 
                         <div class="app">
                             <a href="#">
-                                <img src="img/footer/apple.png" alt="">
+                                <img src="img/footer/apple2.png" alt="">
                             </a>
                             <a href="#">
                                 <img src="img/footer/google.png" alt="">
@@ -2624,12 +2624,14 @@
                             </ul> <!-- f_depth02 end -->
                         </li> <!-- f_depth01 end -->
 
-                        <div class="btn_case">
-                            <div class="more_btn">
-                                <span></span>
-                                <span></span>
-                            </div> <!-- more_btn end -->
-                        </div> <!-- btn_case end -->
+                        <li>
+                            <div class="btn_case">
+                                <div class="more_btn">
+                                    <span></span>
+                                    <span></span>
+                                </div> <!-- more_btn end -->
+                            </div> <!-- btn_case end -->
+                        </li>
                     </ul> <!-- f_gnb end -->
                 </nav>
             </div> <!-- inner end -->
