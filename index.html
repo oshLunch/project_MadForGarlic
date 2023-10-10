@@ -66,7 +66,7 @@
 
             // 모바일 메뉴
             let mobileBtn = $('header .mobile_menu');
-            let closeBtn = $('header .mobile_join figure');
+            let closeBtn = $('header .mobile_join li:last-child');
             let mobileNav = $('header .mobile_gnb');
             let mobileBg = $('header .mobile_bg');
             let mDepth01 = $('header .mobile_gnb .gnb .depth01');
@@ -208,7 +208,7 @@
                     })
                 } else {
                     mDepth02.css({
-                        'height': '100vh'
+                        'height': 'calc(100vh - 50px)'
                     })
                 }
             } else {
@@ -218,7 +218,7 @@
                     })
                 } else {
                     mDepth02.css({
-                        'height': '100vh'
+                        'height': 'calc(100vh - 50px)'
                     })
                 }
             }
@@ -237,7 +237,7 @@
                             })
                         } else {
                             mDepth02.css({
-                                'height': '100vh'
+                                'height': 'calc(100vh - 50px)'
                             })
                         }
                     } else {
@@ -247,7 +247,7 @@
                             })
                         } else {
                             mDepth02.css({
-                                'height': '100vh'
+                                'height': 'calc(100vh - 50px)'
                             })
                         }
                     }
