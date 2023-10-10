@@ -24,17 +24,7 @@
 
             pcLi.removeClass('on');
 
-            if ($(window).width() <= 1275 && $(window).width() > 960) {
-                pcA.click(function () {
-                    if ($(this).next().css('display') == 'none') {
-                        pcA2.slideUp();
-                        $(this).next().slideDown();
-                    } else {
-                        $(this).next().slideUp();
-                    }
-                });
-
-            } else if ($(window).width() > 1275) {
+            if ($(window).width() > 1275 && $(window).width() > 960) {
                 pcA.mouseenter(function () {
                     pcLi.removeClass('on');
                     $(this).parent().addClass('on');
@@ -284,6 +274,7 @@
             })
 
             // cont01 메뉴 네비게이션
+            let menuTag = $('.cont01 .inner nav .tag');
             let menuNav = $('.cont01 .inner nav .tag li');
             let menuList = $('.cont01 .inner .menu_list');
 
@@ -294,6 +285,28 @@
                 menuList.removeClass('on');
                 menuList.eq($(this).index()).addClass('on');
             })
+
+            // cont01 메뉴태그 마우스로 슬라이드
+            var clicked = false, clickX;
+            menuTag.on({
+                'mousemove': function (e) {
+                    clicked && updateScrollPos(e);
+                },
+                'mousedown': function (e) {
+                    e.preventDefault();
+                    clicked = true;
+                    clickX = e.pageX;
+                },
+                'mouseup': function () {
+                    clicked = false;
+                    $('html').css('cursor', 'auto');
+                }
+            });
+
+            var updateScrollPos = function (e) {
+                menuTag.css('cursor', 'grabbing');
+                menuTag.scrollLeft(menuTag.scrollLeft() + (clickX - e.pageX));
+            }
 
             // cont01 메뉴 슬라이드
             var swiper = new Swiper(".menu_list", {
@@ -402,7 +415,7 @@
             sideBar.hide();
 
             $(window).scroll(function () {
-                if ($(window).width() <= '1275' && $(window).width() > '540') {
+                if ($(window).width() <= '1275' && $(window).width() > '650') {
                     if (cont01Top / 2 < $(window).scrollTop()) {
                         sideBar.css({
                             'display': 'flex'
@@ -411,7 +424,7 @@
                         sideBar.hide();
                     }
 
-                } else if ($(window).width() <= '540') {
+                } else if ($(window).width() <= '650') {
                     sideBar.hide();
 
                 } else {
@@ -2039,13 +2052,17 @@
                                 </div> <!-- menu_img end -->
 
                                 <div class="menu_info">
-                                    <h3>DESSERT</h3>
-                                    <span>디저트</span>
+                                    <div class="menu_tag">
+                                        <h3>DESSERT</h3>
+                                        <span>디저트</span>
+                                    </div> <!-- menu_tag end -->
 
-                                    <h4>Basque Cheese Cake</h4>
-                                    <strong>￦11,900</strong>
+                                    <div class="menu_text">
+                                        <h4>Basque Cheese Cake</h4>
+                                        <strong>￦11,900</strong>
 
-                                    <p>바닐라 아이스크림과 함께 즐기는 바스크 치즈 케이크</p>
+                                        <p>바닐라 아이스크림과 함께 즐기는 바스크 치즈 케이크</p>
+                                    </div> <!-- menu_text end -->
 
                                     <ul>
                                         <li>※ 특정 원재료에 알레르기가 있으신 경우 매장에 사전 문의 부탁드립니다.</li>
@@ -2469,8 +2486,10 @@
                 <div class="inner">
                     <div class="membership">
                         <div class="title">
-                            <h3><a href="#">MEMBERSHIP</a></h3>
-                            <p>모든 브랜드에서 적립하고 혜택 누리는 올인원 맴버십 M CLUB</p>
+                            <a href="#">
+                                <h3>MEMBERSHIP</h3>
+                                <p>모든 브랜드에서 적립하고 혜택 누리는 올인원 맴버십 M CLUB</p>
+                            </a>
                         </div> <!-- title end -->
 
                         <div class="list">
