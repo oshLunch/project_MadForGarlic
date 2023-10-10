@@ -483,7 +483,7 @@ header .pc_join li a:hover:after {
 }
 
 .cont02 .frame h2 {
-    margin-bottom: 0;
+    margin-bottom: 50;
 }
 
 .cont02 .frame {
@@ -1262,7 +1262,7 @@ footer nav .f_gnb .f_depth01 .f_depth02 li {
 
     header .mobile_gnb .gnb {
         width: 100%;
-        height: 100%;
+        height: calc(100vh - 50px);
         margin: 0 auto;
         padding: 10px 0;
         position: relative;
@@ -2023,6 +2023,10 @@ footer nav .f_gnb .f_depth01 .f_depth02 li {
     header,
     header .mobile_gnb .mobile_join {
         height: 30px;
+    }
+
+    header .mobile_gnb .gnb .depth01 .depth02 {
+        top: 30px;
     }
 
     header h1 {

@@ -22,22 +22,18 @@
             let pcA2 = $('header .pc .gnb .depth01 .depth02');
             let pcLi = $('header .pc .gnb .depth01');
 
-            pcLi.removeClass('on');
+            pcA.mouseenter(function () {
+                pcLi.removeClass('on');
+                $(this).parent().addClass('on');
+            });
 
-            if ($(window).width() > 960) {
-                pcA.mouseenter(function () {
-                    pcLi.removeClass('on');
-                    $(this).parent().addClass('on');
-                });
+            depth01.mouseleave(function () {
+                pcLi.removeClass('on');
+            })
 
-                depth01.mouseleave(function () {
-                    pcLi.removeClass('on');
-                })
-
-                pcA2.mouseleave(function () {
-                    pcLi.removeClass('on');
-                });
-            }
+            pcA2.mouseleave(function () {
+                pcLi.removeClass('on');
+            });
 
             // 스크롤시 헤더 색상 변경
             let cont01Top = $('.cont01').offset().top;
@@ -222,37 +218,6 @@
                     })
                 }
             }
-
-            // 창 사이즈 변경에 맞춘 2차메뉴 높이 변경
-            $(window).resize(function () {
-                if (window.orientation == 0) { // 화면 세로
-                    mDepth02.css({
-                        'height': '100vh'
-                    })
-                } else {                       // 화면 가로
-                    if ($(window).width() > 414) {
-                        if ($(window).height() <= 460) {
-                            mDepth02.css({
-                                'height': '100%'
-                            })
-                        } else {
-                            mDepth02.css({
-                                'height': 'calc(100vh - 50px)'
-                            })
-                        }
-                    } else {
-                        if ($(window).height() <= 250) {
-                            mDepth02.css({
-                                'height': '100%'
-                            })
-                        } else {
-                            mDepth02.css({
-                                'height': 'calc(100vh - 50px)'
-                            })
-                        }
-                    }
-                }
-            })
 
             // 2차메뉴 클릭시 이벤트
             mA.click(function () {
